@@ -1,0 +1,14 @@
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: `${import.meta.env.VITE_API_URL}/auth`
+})
+
+export const signUpService = (formData) => {
+  return api.post('/sign-up/', formData)
+}
+
+export const signInService = (formData) => {
+  return api.post('/sign-in/', formData)
+}
+
