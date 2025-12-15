@@ -1,15 +1,35 @@
-// src/components/NavBar/NavBar.jsx
-
+import './Navbar.css'
+import { useContext } from 'react';
 import { Link } from 'react-router';
 
+// Context
+import { UserContext } from '../../contexts/UserContext';
+
 const NavBar = () => {
-  return (
-    <nav>
-      <ul>
-        <li><Link to='/sign-up'>Sign Up</Link></li>
-      </ul>
-    </nav>
-  );
+    const { user, signOut } = useContext(UserContext);
+
+    return (
+        <header className="navbar">
+            <div className="navbar__brand">
+                <Link to="/">🗺️ TriAtlas</Link>
+            </div>
+
+            <nav className="navbar__links">
+                {user ? (
+                    <>
+                        <Link to="/me">Profile</Link>
+                        <button onClick={signOut}>Sign out</button>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/sign-in">Sign in</Link>
+                        <Link to="/sign-up">Create an account</Link>
+                    </>
+                )}
+            </nav>
+
+        </header>
+    );
 };
 
 export default NavBar;
