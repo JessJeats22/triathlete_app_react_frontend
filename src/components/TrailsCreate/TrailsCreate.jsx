@@ -4,6 +4,7 @@ import { trailsCreate } from '../../services/trails'
 import { useNavigate, Navigate } from 'react-router'
 import { UserContext } from '../../contexts/UserContext.jsx'
 import countries from 'world-countries'
+import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
 const TrailsCreate = () => {
     const { user } = useContext(UserContext)
@@ -15,10 +16,11 @@ const TrailsCreate = () => {
         country: '',
         city_town: '',
         description: '',
-        images: '',
+        images: [],
     })
 
     const navigate = useNavigate()
+
     const countryOptions = countries
         .map(c => c.name.common)
         .sort((a, b) => a.localeCompare(b))
@@ -29,6 +31,14 @@ const TrailsCreate = () => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
+
+      // IMAGE UPLOADER HANDLER
+    const setTrailImage = (imageURL) => {
+        setFormData(prev => ({
+            ...prev,
+            images: [...prev.images, imageURL],
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -123,20 +133,12 @@ const TrailsCreate = () => {
                     />
                 </div>
 
-                <div className="form-control">
-                    <label htmlFor="images">Image URL</label>
-                    <input
-                        type="text"
-                        name="images"
-                        id="images"
-                        placeholder="https://example.com/image.jpg"
-                        value={formData.images}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-
+                <ImageUploadField
+                    labelText="Upload Travel Post Image"
+                    fieldName="image"
+                    setImage={setTrailImage}
+                    imageURL={formData.images}
+                />
 
 
                 <button type="submit">Create Trail</button>
