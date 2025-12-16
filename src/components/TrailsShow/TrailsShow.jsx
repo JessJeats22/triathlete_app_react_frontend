@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from 'react'
 import { trailsShow } from '../../services/trails'
 import { UserContext } from '../../contexts/UserContext'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import TrailsDelete from '../TrailsDelete/TrailsDelete'
 
 const TrailsShow = () => {
 
@@ -97,13 +98,17 @@ const TrailsShow = () => {
                     </ul>
 
                     <div className="trail-actions">
-                        {user && user.id === trail.created_by.id && (
-                            <Link
-                                to={`/trails/${trailId}/edit`}
-                                className="btn btn-primary"
-                            >
-                                Edit Trail
-                            </Link>
+                        {user && trail?.created_by && user.id === trail.created_by.id && (
+                            <>
+                                <Link
+                                    to={`/trails/${trailId}/edit`}
+                                    className="btn btn-primary"
+                                >
+                                    Edit Trail
+                                </Link>
+
+                                <TrailsDelete trailId={trailId} />
+                            </>
                         )}
 
                         <Link to="/trails" className="btn btn-secondary">
@@ -111,8 +116,9 @@ const TrailsShow = () => {
                         </Link>
                     </div>
                 </section>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 
