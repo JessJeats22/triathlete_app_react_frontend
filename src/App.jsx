@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/trails" element ={<TrailsIndex />} />
           <Route path="/trails/new" element={<TrailsCreate />} />
-          <Route path="/trails/:trailsId/edit" element={<TrailsUpdate />} />
+          <Route path="/trails/:trailId/edit" element={<TrailsUpdate />} />
         </Routes>
       </main>
     </>
