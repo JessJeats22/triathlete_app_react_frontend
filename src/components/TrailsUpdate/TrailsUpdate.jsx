@@ -1,4 +1,4 @@
-import './TrailsCreate.css'
+import './TrailsUpdate.css'
 
 
 const TrailsUpdate = () => {
