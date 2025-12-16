@@ -1,0 +1,60 @@
+/* Base button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Primary (green) */
+.btn-primary {
+  background-color: #2a9d8f;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #21867a;
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* Secondary (blue / neutral) */
+.btn-secondary {
+  background-color: #e8f3f1;
+  color: #1f6f5c;
+}
+
+.btn-secondary:hover {
+  background-color: #d9ece9;
+}
+
+/* Danger (delete etc.) */
+.btn-danger {
+  background-color: #d64545;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: #b93737;
+}
+
+/* Disabled */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,88 @@
+/* Page container */
+.trail-details-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Page title */
+.trail-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1f6f5c;
+  margin-bottom: 2rem;
+}
+
+/* Card */
+.trail-details-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+}
+
+/* Details list */
+.trail-details-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* Individual detail row */
+.trail-details-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  line-height: 1.5;
+}
+
+/* Labels */
+.trail-details-card .label {
+  min-width: 120px;
+  font-weight: 600;
+  color: #375f57;
+}
+
+/* Values */
+.trail-details-card .value {
+  color: #2f3e3b;
+  flex: 1;
+}
+
+/* Image container */
+.trail-details-card .image-item {
+  margin-top: 1.5rem;
+}
+
+/* Trail image */
+.trail-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #e1ecea;
+}
+
+/* Action buttons area */
+.trail-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Error message */
+.error-message {
+  color: #b00020;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+/* Loading fallback */
+.loading-text {
+  text-align: center;
+  color: #5f7f78;
+}

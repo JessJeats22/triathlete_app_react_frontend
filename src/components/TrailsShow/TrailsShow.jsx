@@ -99,14 +99,14 @@ const TrailsShow = () => {
                     <div className="trail-actions">
                         {user && user.id === trail.created_by.id && (
                             <Link
-                                to={`/trail/${trailId}/edit`}
-                                className="edit-button"
+                                to={`/trails/${trailId}/edit`}
+                                className="btn btn-primary"
                             >
                                 Edit Trail
                             </Link>
                         )}
 
-                        <Link to="/trails" className="edit-button">
+                        <Link to="/trails" className="btn btn-secondary">
                             Back to All Trails
                         </Link>
                     </div>

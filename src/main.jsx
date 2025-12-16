@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router'
 import App from './App.jsx'
 import './index.css'
 import { UserProvider } from './contexts/UserContext.jsx'
+import './styles/buttons.css'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
