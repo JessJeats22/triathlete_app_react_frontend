@@ -8,6 +8,8 @@ import TrailsIndex from './components/TrailsIndex/TrailsIndex';
 import TrailsCreate from './components/TrailsCreate/TrailsCreate';
 import TrailsUpdate from './components/TrailsUpdate/TrailsUpdate'; 
 import TrailsShow from './components/TrailsShow/TrailsShow'; 
+import HomePage from './components/HomePage/HomePage'
+
 
 
 
@@ -18,7 +20,7 @@ const App = () => {
       <NavBar />
       <main>
         <Routes>
-          <Route path="/" element={""} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element ={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/trails" element ={<TrailsIndex />} />

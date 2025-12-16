@@ -44,7 +44,7 @@ const TrailsCreate = () => {
         e.preventDefault()
         try {
             const { data } = await trailsCreate(formData)
-            navigate(`/trail/${data.id}`)
+            navigate(`/trails/${data.id}`)
         } catch (error) {
             console.log('STATUS:', error.response?.status)
             console.log('DATA:', error.response?.data)

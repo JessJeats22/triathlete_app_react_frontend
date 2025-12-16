@@ -1,0 +1,54 @@
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f6f5c;
+  margin-bottom: 0.5rem;
+}
+
+.hero-tagline {
+  font-size: 1.2rem;
+  color: #4f7f76;
+}
+
+.home-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #2f3e3b;
+}
+
+.home-content p {
+  margin-bottom: 1.25rem;
+}
+
+.home-list {
+  margin: 1rem 0 1.5rem;
+  padding-left: 1.2rem;
+}
+
+.home-list li {
+  margin-bottom: 0.5rem;
+}
+
+.home-actions {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
