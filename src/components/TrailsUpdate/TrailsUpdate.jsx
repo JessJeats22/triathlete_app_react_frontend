@@ -1,8 +1,20 @@
 import './TrailsUpdate.css'
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { useNavigate, useParams, Navigate } from 'react-router'
+import { trailsShow, trailsUpdate } from '../../services/trails'
+import { UserContext } from '../../contexts/UserContext.jsx'
+import countries from 'world-countries'
+import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
 
 const TrailsUpdate = () => {
+
+    const { user } = useContext(UserContext)
+    const { trailId } = useParams()
+    const navigate = useNavigate()
+
+    const [errorData, setErrorData] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
 
     const [formData, setFormData] = useState({
         name: '',
@@ -13,7 +25,65 @@ const TrailsUpdate = () => {
         images: [],
     })
 
+    const countryOptions = countries
+        .map(c => c.name.common)
+        .sort((a, b) => a.localeCompare(b))
 
+    useEffect(() => {
+        const getTrail = async () => {
+            try {
+                const { data } = await trailsShow(trailId)
+                setFormData({
+                    name: data.name,
+                    trail_type: data.trail_type,
+                    country: data.country,
+                    city_town: data.city_town,
+                    description: data.description || '',
+                    images: data.images || [],
+                })
+            } catch (error) {
+                console.log(error)
+                setErrorData({ message: 'Could not load trail data' })
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        getTrail()
+    }, [trailId])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+    }
+
+    const setTrailImage = (imageURL) => {
+        setFormData(prev => ({
+            ...prev,
+            images: [...prev.images, imageURL],
+        }))
+    }
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const { data } = await trailsUpdate(trailId, formData)
+            navigate(`/trail/${data.id}`)
+        } catch (error) {
+            console.log('STATUS:', error.response?.status)
+            console.log('DATA:', error.response?.data)
+            setErrorData(error.response?.data || {})
+        }
+    }
+
+    if (!user) {
+        return <Navigate to="/sign-in" />
+    }
+
+    if (isLoading) {
+        return <p>Loading trail...</p>
+    }
 
     return (
         <>
