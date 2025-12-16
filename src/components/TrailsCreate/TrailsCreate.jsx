@@ -120,6 +120,32 @@ const TrailsCreate = () => {
                     />
                 </div>
 
+                <div className="form-control">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        name="description"
+                        id="description"
+                        placeholder="Describe the trail..."
+                        value={formData.description}
+                        onChange={handleChange}
+                        rows="4"
+                    />
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="images">Image URL</label>
+                    <input
+                        type="text"
+                        name="images"
+                        id="images"
+                        placeholder="https://example.com/image.jpg"
+                        value={formData.images}
+                        onChange={handleChange}
+                    />
+                </div>
+
+
+
 
 
                 <button type="submit">Create Trail</button>
