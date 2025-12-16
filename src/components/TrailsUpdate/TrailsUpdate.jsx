@@ -15,12 +15,27 @@ const TrailsUpdate = () => {
 
 
 
-return (
-    <>
-        <h1>hello</h1>
-    </>
+    return (
+        <>
+            <h1>Edit Trail</h1>
 
-)
+            <form onSubmit={handleSubmit}>
+                <div className="form-control">
+                    <label htmlFor="name">Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            </form>
+
+        </>
+
+    )
 }
 
 export default TrailsUpdate
