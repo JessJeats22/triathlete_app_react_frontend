@@ -36,7 +36,8 @@ const TrailsCreate = () => {
             const { data } = await trailsCreate(formData)
             navigate(`/trail/${data.id}`)
         } catch (error) {
-            console.log(error)
+            console.log('STATUS:', error.response?.status)
+            console.log('DATA:', error.response?.data)
             if (error.response?.status === 500) {
                 return setErrorData({ message: 'Something went wrong. Please try again.' })
             }
