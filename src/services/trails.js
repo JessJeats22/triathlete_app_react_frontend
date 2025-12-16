@@ -18,10 +18,20 @@ export const trailsCreate = (formData) => {
   })
 }
 
+
+
 export const showTrail = (id) => {
   return api.get(`/${id}`, {
     headers: {
       Authorization: `Bearer ${getToken()}`
     }
+  })
+}
+
+export const trailsUpdate = (trailId, formData) => {
+  return api.put(`${trailId}/`, formData, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
   })
 }

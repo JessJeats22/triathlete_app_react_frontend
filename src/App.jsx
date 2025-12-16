@@ -6,6 +6,7 @@ import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn'
 import TrailsIndex from './components/TrailsIndex/TrailsIndex';
 import TrailsCreate from './components/TrailsCreate/TrailsCreate';
+import TrailsUpdate from './components/TrailsUpdate/TrailsUpdate';
 
 const App = () => {
   
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/trails" element ={<TrailsIndex />} />
           <Route path="/trails/new" element={<TrailsCreate />} />
+          <Route path="/trails/:trailsId/edit" element={<TrailsUpdate />} />
         </Routes>
       </main>
     </>
