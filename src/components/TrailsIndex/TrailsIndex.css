@@ -1,8 +1,21 @@
+:root {
+  --green-100: #dcfce7;
+  --green-600: #15803d;
+
+  --green-200: #bbf7d0;
+  --green-800: #14532d;
+
+  --blue-100: #dbeafe;
+  --blue-700: #5a80e9;
+}
+
+
 .trails-index-page {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
+
 
 .page-title {
   font-size: 2.2rem;
@@ -40,4 +53,31 @@
 .trail-card-content p {
   font-size: 0.9rem;
   color: var(--text-muted);
+}
+
+.trail-type {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+
+.trail-type.run {
+  background: var(--green-100);
+  color: var(--green-600);
+}
+
+.trail-type.bike {
+   background: #09e051;
+  color: var(--blue-700);
+}
+
+.trail-type.swim {
+  background: #7cd9e5;
+  color: #0369a1;
 }

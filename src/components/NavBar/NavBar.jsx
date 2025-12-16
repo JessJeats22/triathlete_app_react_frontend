@@ -20,7 +20,7 @@ const NavBar = () => {
             <nav className="navbar__links">
                 {user ? (
                     <>
-                        <Link to="/me">All Trails</Link>
+                        <Link to="/trails">All Trails</Link>
                         <Link to="/me">Profile</Link>
                         <button onClick={signOut}>Sign out</button>
                     </>

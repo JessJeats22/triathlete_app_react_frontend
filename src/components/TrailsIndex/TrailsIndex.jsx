@@ -48,7 +48,9 @@ const TrailsIndex = () => {
                         >
                             <div className="trail-card-content">
                                 <h2>{trail.name}</h2>
-                                <p>{trail.trail_type}...</p>
+                                <p className={`trail-type ${trail.trail_type}`}>
+                                    {trail.trail_type}
+                                </p>
                                 <p>{trail.country}...</p>
                             </div>
                         </Link>
