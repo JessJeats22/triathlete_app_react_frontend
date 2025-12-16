@@ -134,7 +134,7 @@ const TrailsCreate = () => {
                 </div>
 
                 <ImageUploadField
-                    labelText="Upload Trail mage"
+                    labelText="Upload Trail image"
                     fieldName="image"
                     setImage={setTrailImage}
                     imageURL={formData.images}
