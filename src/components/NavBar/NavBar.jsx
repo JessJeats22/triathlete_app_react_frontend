@@ -21,6 +21,7 @@ const NavBar = () => {
                 {user ? (
                     <>
                         <Link to="/trails">All Trails</Link>
+                        <Link to="/trails/new">Add Trail</Link>
                         <Link to="/me">Profile</Link>
                         <button onClick={signOut}>Sign out</button>
                     </>

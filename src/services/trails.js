@@ -7,3 +7,12 @@ const api = axios.create({
 export const trailsIndex = () => {
   return api.get('/')
 }
+
+
+export const trailsCreate = (formData) => {
+    return api.post ('' , formData, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  })
+}
