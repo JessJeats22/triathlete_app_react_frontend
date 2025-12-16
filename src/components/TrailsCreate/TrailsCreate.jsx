@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import { trailsIndex, trailsCreate } from '../../services/trails'
 import { useNavigate, Navigate } from 'react-router'
 import { UserContext } from '../../contexts/UserContext.jsx'
+import countries from 'world-countries'
 
 const TrailsCreate = () => {
     const { user } = useContext(UserContext)
@@ -20,6 +21,7 @@ const TrailsCreate = () => {
     })
 
     const navigate = useNavigate()
+    const countryOptions = countries.map(c => c.name.common)
 
     useEffect(() => {
         const getData = async () => {
@@ -96,15 +98,12 @@ const TrailsCreate = () => {
 
                 <div className="form-control">
                     <label htmlFor="country">Country</label>
-                    <input
-                        type="text"
-                        name="country"
-                        id="country"
-                        placeholder="Country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        required
-                    />
+                    <select name="country" value={formData.country} onChange={handleChange}>
+                        <option value="">Select country</option>
+                        {countryOptions.map(country => (
+                            <option key={country} value={country}>{country}</option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="form-control">
