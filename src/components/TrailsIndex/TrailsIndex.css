@@ -1,0 +1,43 @@
+.trails-index-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: var(--blue-700);
+}
+
+.trails-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.trail-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+}
+
+.trail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+  border-color: var(--green-400);
+}
+
+.trail-card-content h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--blue-700);
+}
+
+.trail-card-content p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}

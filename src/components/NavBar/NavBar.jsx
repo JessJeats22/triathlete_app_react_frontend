@@ -2,6 +2,7 @@ import './Navbar.css'
 import { useContext } from 'react';
 import { Link } from 'react-router';
 
+
 // Context
 import { UserContext } from '../../contexts/UserContext';
 
@@ -19,6 +20,7 @@ const NavBar = () => {
             <nav className="navbar__links">
                 {user ? (
                     <>
+                        <Link to="/me">All Trails</Link>
                         <Link to="/me">Profile</Link>
                         <button onClick={signOut}>Sign out</button>
                     </>
