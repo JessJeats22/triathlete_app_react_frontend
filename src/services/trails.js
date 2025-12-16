@@ -17,3 +17,11 @@ export const trailsCreate = (formData) => {
     }
   })
 }
+
+export const showTrail = (id) => {
+  return api.get(`/${id}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  })
+}
