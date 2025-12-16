@@ -9,7 +9,7 @@ import { UserContext } from '../../contexts/UserContext'
 
 const SignIn = () => {
 
-     const { setUser } = useContext(UserContext)
+    const { setUser } = useContext(UserContext)
     // State
     const [formData, setFormData] = useState({
         username: "",
@@ -27,25 +27,23 @@ const SignIn = () => {
     }
 
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-  
-      const response = await signInService(formData)
+        e.preventDefault()
+        try {
 
+            const response = await signInService(formData)
 
-      const token = response.data.token
+           
+            const token = response.data.access
 
-
-      if (token) setToken(token)
-
-      
-      setUser(getUserFromToken())
-
-
-      navigate('/')
+            if (token) {
+                setToken(token)
+                setUser(getUserFromToken())
+            }
+       
+            navigate('/')
 
 
         } catch (error) {

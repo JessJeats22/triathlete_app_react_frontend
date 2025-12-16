@@ -8,6 +8,8 @@ import { UserContext } from '../../contexts/UserContext';
 const NavBar = () => {
     const { user, signOut } = useContext(UserContext);
 
+    localStorage.getItem('travelToken')
+
     return (
         <header className="navbar">
             <div className="navbar__brand">
@@ -31,5 +33,6 @@ const NavBar = () => {
         </header>
     );
 };
+
 
 export default NavBar;
