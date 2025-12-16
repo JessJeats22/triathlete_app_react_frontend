@@ -1,0 +1,12 @@
+.form-control input,
+.form-control textarea,
+.form-control select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  box-sizing: border-box;
+}
