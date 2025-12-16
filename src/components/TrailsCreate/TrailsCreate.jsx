@@ -1,6 +1,6 @@
 import './TrailsCreate.css'
-import { useEffect, useState, useContext } from 'react'
-import { trailsIndex, trailsCreate } from '../../services/trails'
+import { useState, useContext } from 'react'
+import { trailsCreate } from '../../services/trails'
 import { useNavigate, Navigate } from 'react-router'
 import { UserContext } from '../../contexts/UserContext.jsx'
 import countries from 'world-countries'
@@ -8,8 +8,6 @@ import countries from 'world-countries'
 const TrailsCreate = () => {
     const { user } = useContext(UserContext)
 
-    const [trails, setTrails] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
     const [errorData, setErrorData] = useState({})
     const [formData, setFormData] = useState({
         name: '',
@@ -21,23 +19,11 @@ const TrailsCreate = () => {
     })
 
     const navigate = useNavigate()
-    const countryOptions = countries.map(c => c.name.common)
+    const countryOptions = countries
+        .map(c => c.name.common)
+        .sort((a, b) => a.localeCompare(b))
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const { data } = await trailsIndex()
-                setTrails(data)
-            } catch (error) {
-                console.log(error)
-                setErrorData(error.response?.data || {})
-            } finally {
-                setIsLoading(false)
-            }
-        }
 
-        getData()
-    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -47,7 +33,7 @@ const TrailsCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const { data } = await createTrails(formData)
+            const { data } = await trailsCreate(formData)
             navigate(`/trail/${data.id}`)
         } catch (error) {
             console.log(error)
@@ -98,7 +84,12 @@ const TrailsCreate = () => {
 
                 <div className="form-control">
                     <label htmlFor="country">Country</label>
-                    <select name="country" value={formData.country} onChange={handleChange}>
+                    <select
+                        name="country"
+                        id="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                        required>
                         <option value="">Select country</option>
                         {countryOptions.map(country => (
                             <option key={country} value={country}>{country}</option>
