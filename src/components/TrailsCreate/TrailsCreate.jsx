@@ -107,6 +107,20 @@ const TrailsCreate = () => {
                     />
                 </div>
 
+                <div className="form-control">
+                    <label htmlFor="city_town">City / Town</label>
+                    <input
+                        type="text"
+                        name="city_town"
+                        id="city_town"
+                        placeholder="City or town"
+                        value={formData.city_town}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+
 
                 <button type="submit">Create Trail</button>
             </form>
