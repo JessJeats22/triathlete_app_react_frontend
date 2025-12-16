@@ -1,51 +1,119 @@
 import './TrailsShow.css'
-import { useParams, useNavigate } from 'react-router'
+import { useParams, useNavigate, Link } from 'react-router'
 import { useEffect, useState, useContext } from 'react'
 import { trailsShow } from '../../services/trails'
 import { UserContext } from '../../contexts/UserContext'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 
 const TrailsShow = () => {
-  const { trailId } = useParams()
-  const navigate = useNavigate()
-  const { user } = useContext(UserContext)
 
-  const [trail, setTrail] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [errorData, setErrorData] = useState({})
+    const { trailId } = useParams()
+    const navigate = useNavigate()
+    const { user } = useContext(UserContext)
 
-  useEffect(() => {
-    const getTrail = async () => {
-      try {
-        const { data } = await trailsShow(trailId)
-        setTrail(data)
-      } catch (error) {
-        setErrorData(error.response?.data || {})
-      } finally {
-        setIsLoading(false)
-      }
+    const [trail, setTrail] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [errorData, setErrorData] = useState({})
+
+    useEffect(() => {
+        const getTrail = async () => {
+            try {
+                const { data } = await trailsShow(trailId)
+                setTrail(data)
+            } catch (error) {
+                setErrorData(error.response?.data || {})
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        getTrail()
+    }, [trailId])
+
+    if (isLoading) {
+        return <LoadingIcon />
     }
 
-    getTrail()
-  }, [trailId])
+    if (errorData.message) {
+        return <p className="error">{errorData.message}</p>
+    }
 
-  if (isLoading) {
-    return <LoadingIcon />
-  }
+    if (!trail) {
+        return <p>Nothing to display.</p>
+    }
 
-  if (errorData.message) {
-    return <p className="error">{errorData.message}</p>
-  }
+    return (
+        <div className="trail-details-container">
+            <h1 className="trail-title">
+                {trail?.name || 'Trail Details'}
+            </h1>
 
-  if (!trail) {
-    return <p>Nothing to display.</p>
-  }
+            {errorData.message ? (
+                <p className="error-message">{errorData.message}</p>
+            ) : isLoading ? (
+                <LoadingIcon />
+            ) : !trail ? (
+                <p>Nothing to display.</p>
+            ) : (
+                <section className="trail-details-card">
+                    <ul>
+                        <li>
+                            <span className="label">Created by:</span>
+                            <span className="value">{trail.created_by.username}</span>
+                        </li>
 
-  return (
-    <div className="trail-show-container">
-      <h1>hello</h1>
-    </div>
-  )
+                        <li>
+                            <span className="label">Trail Type:</span>
+                            <span className="value">{trail.trail_type}</span>
+                        </li>
+
+                        <li>
+                            <span className="label">Country:</span>
+                            <span className="value">{trail.country}</span>
+                        </li>
+
+                        <li>
+                            <span className="label">City / Town:</span>
+                            <span className="value">{trail.city_town}</span>
+                        </li>
+
+                        {trail.description && (
+                            <li>
+                                <span className="label">Description:</span>
+                                <span className="value">{trail.description}</span>
+                            </li>
+                        )}
+
+                        {trail.images?.length > 0 && (
+                            <li className="image-item">
+                                <span className="label"></span>
+                                <img
+                                    src={trail.images[0]}
+                                    alt={trail.name}
+                                    className="trail-image"
+                                />
+                            </li>
+                        )}
+                    </ul>
+
+                    <div className="trail-actions">
+                        {user && user.id === trail.created_by.id && (
+                            <Link
+                                to={`/trail/${trailId}/edit`}
+                                className="edit-button"
+                            >
+                                Edit Trail
+                            </Link>
+                        )}
+
+                        <Link to="/trails" className="edit-button">
+                            Back to All Trails
+                        </Link>
+                    </div>
+                </section>
+            )}
+        </div>
+    )
 }
 
 export default TrailsShow

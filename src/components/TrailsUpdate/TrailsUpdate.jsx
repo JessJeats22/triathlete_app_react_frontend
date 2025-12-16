@@ -9,8 +9,8 @@ import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
 const TrailsUpdate = () => {
 
-    const { user } = useContext(UserContext)
     const { trailId } = useParams()
+    const { user } = useContext(UserContext)
     const navigate = useNavigate()
 
     const [errorData, setErrorData] = useState({})
