@@ -34,3 +34,11 @@ export const trailsUpdate = (trailId, formData) => {
     },
   })
 }
+
+export const trailsDelete = (trailId) => {
+  return api.delete(`${trailId}/`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+}
