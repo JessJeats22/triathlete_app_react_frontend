@@ -1,6 +1,17 @@
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import { gpx as gpxToGeoJSON } from '@tmcw/togeojson'
+import { useMapEvents } from 'react-leaflet'
+
+function MapClickHandler({ onMapClick }) {
+  useMapEvents({
+    click(e) {
+      onMapClick(e.latlng)
+    },
+  })
+
+  return null
+}
 
 
 function FitBounds({ route }) {
@@ -19,6 +30,8 @@ function FitBounds({ route }) {
 const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
 
     const [route, setRoute] = useState([])
+    const [newPoiLocation, setNewPoiLocation] = useState(null)
+
 
     useEffect(() => {
         if (!gpxUrl) return
@@ -60,7 +73,6 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
 
 
 
-
     return (
         <MapContainer
             center={center}
@@ -99,8 +111,11 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                     </Popup>
                 </Marker>
 
-                
             ))}
+
+            <MapClickHandler onMapClick={setNewPoiLocation} />
+            
+
         </MapContainer>
     )
 }
