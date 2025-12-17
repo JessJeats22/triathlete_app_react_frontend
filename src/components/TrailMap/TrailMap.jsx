@@ -3,15 +3,22 @@ import { useEffect, useState } from 'react'
 import { gpx as gpxToGeoJSON } from '@tmcw/togeojson'
 
 
+function FitBounds({ route }) {
+    const map = useMap()
+
+    useEffect(() => {
+        if (route.length > 0) {
+            map.fitBounds(route)
+        }
+    }, [route, map])
+
+    return null
+}
+
+
 const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
-    // Safety check (important for real apps)
-    if (!latitude || !longitude) {
-        return <p>Map location unavailable.</p>
-    }
 
     const [route, setRoute] = useState([])
-
-    const center = [latitude, longitude]
 
     useEffect(() => {
         if (!gpxUrl) return
@@ -40,18 +47,19 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
         loadGpx()
     }, [gpxUrl])
 
-
-    function FitBounds({ route }) {
-        const map = useMap()
-
-        useEffect(() => {
-            if (route.length > 0) {
-                map.fitBounds(route)
-            }
-        }, [route, map])
-
-        return null
+    // Safety check (important for real apps)
+    if ((!latitude || !longitude) && route.length === 0) {
+        return <p>Map location unavailable.</p>
     }
+
+
+
+    const center = route.length > 0
+        ? route[0]
+        : [latitude, longitude]
+
+
+
 
     return (
         <MapContainer
@@ -66,12 +74,18 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             />
 
+            {route.length > 0 && (
+                <>
+                    <Polyline positions={route} />
+                    <FitBounds route={route} />
+                </>
+            )}
 
-            <Marker position={center}>
-                <Popup>
-                    Trail start
-                </Popup>
-            </Marker>
+            {route.length === 0 && latitude && longitude && (
+                <Marker position={[latitude, longitude]}>
+                    <Popup>Trail start</Popup>
+                </Marker>
+            )}
 
 
             {pois.map(poi => (
@@ -84,6 +98,8 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                         {poi.description && <p>{poi.description}</p>}
                     </Popup>
                 </Marker>
+
+                
             ))}
         </MapContainer>
     )
