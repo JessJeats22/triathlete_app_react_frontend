@@ -6,6 +6,8 @@ import { UserContext } from '../../contexts/UserContext'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import TrailsDelete from '../TrailsDelete/TrailsDelete'
 import TrailPOIs from '../TrailPOIs/TrailPOIs'
+import TrailMap from '../TrailMap/TrailMap'
+
 
 
 const TrailsShow = () => {
@@ -121,9 +123,18 @@ const TrailsShow = () => {
                     <div>
                         <TrailPOIs trailId={trailId} />
                     </div>
+
+                    <div>
+                        <TrailMap
+                            latitude={trail.latitude}
+                            longitude={trail.longitude}
+                            pois={trail.points_of_interest}
+                        />
+
+                    </div>
                 </section>
 
-                
+
             )
             }
         </div >

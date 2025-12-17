@@ -6,6 +6,8 @@ import './index.css'
 import { UserProvider } from './contexts/UserContext.jsx'
 import './styles/buttons.css'
 import 'leaflet/dist/leaflet.css'
+import './utils/fixLeafletIcons'
+
 
 
 
