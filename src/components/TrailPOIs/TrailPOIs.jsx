@@ -46,7 +46,7 @@ const TrailPOIs = ({ trailId }) => {
 
               {poi.category && (
                 <p className="poi-category">
-                  {poi.category}
+                  {poi.category_type}
                 </p>
               )}
 
