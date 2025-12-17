@@ -41,6 +41,18 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
     }, [gpxUrl])
 
 
+    function FitBounds({ route }) {
+        const map = useMap()
+
+        useEffect(() => {
+            if (route.length > 0) {
+                map.fitBounds(route)
+            }
+        }, [route, map])
+
+        return null
+    }
+
     return (
         <MapContainer
             center={center}
