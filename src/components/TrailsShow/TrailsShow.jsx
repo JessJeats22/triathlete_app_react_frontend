@@ -128,7 +128,9 @@ const TrailsShow = () => {
                         <TrailMap
                             latitude={trail.latitude}
                             longitude={trail.longitude}
+                            gpxUrl={trail.gpx_url}
                             pois={trail.points_of_interest}
+
                         />
 
                     </div>
