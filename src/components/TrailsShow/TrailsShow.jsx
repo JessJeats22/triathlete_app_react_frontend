@@ -7,6 +7,8 @@ import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import TrailsDelete from '../TrailsDelete/TrailsDelete'
 import TrailPOIs from '../TrailPOIs/TrailPOIs'
 import TrailMap from '../TrailMap/TrailMap'
+import { createPoiForTrail } from '../../services/pois'
+
 
 
 
@@ -25,6 +27,8 @@ const TrailsShow = () => {
 
     const [poiFormData, setPoiFormData] = useState({
         name: '',
+        category_type: '',
+        city_town: '',
         description: '',
     })
 
@@ -41,6 +45,37 @@ const TrailsShow = () => {
             [name]: value,
         }))
     }
+
+    const handlePoiSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            await createPoiForTrail(trailId, {
+                name: poiFormData.name,
+                category_type: poiFormData.category_type,
+                city_town: poiFormData.city_town,
+                description: poiFormData.description,
+                latitude: newPoiLocation.lat,
+                longitude: newPoiLocation.lng,
+            })
+
+            // Reset form state
+            setPoiFormData({ name: '', description: '' })
+            setNewPoiLocation(null)
+
+            // Refresh trail data so POI appears on map
+            const { data } = await trailsShow(trailId)
+            console.log('NEW POI LOCATION IN SHOW:', newPoiLocation)
+            setTrail(data)
+
+        } catch (err) {
+            console.error('Failed to create POI:')
+            console.error('STATUS:', err.response?.status)
+            console.error('DATA:', err.response?.data)
+            console.error('Failed to create POI:', err.response?.data || err)
+        }
+    }
+
 
 
     useEffect(() => {
@@ -168,7 +203,7 @@ const TrailsShow = () => {
                                 {newPoiLocation.lng.toFixed(5)}
                             </p>
 
-                            <form>
+                            <form onSubmit={handlePoiSubmit}>
                                 <div className="form-control">
                                     <label htmlFor="poi-name">Name</label>
                                     <input
@@ -180,6 +215,31 @@ const TrailsShow = () => {
                                         placeholder="POI name"
                                     />
                                 </div>
+
+                                <div className="form-control">
+                                    <label htmlFor="poi-category">Category</label>
+                                    <input
+                                        id="poi-category"
+                                        name="category_type"
+                                        type="text"
+                                        value={poiFormData.category_type}
+                                        onChange={handlePoiChange}
+                                        placeholder="e.g. Viewpoint, Water, Cafe"
+                                    />
+                                </div>
+
+                                <div className="form-control">
+                                    <label htmlFor="poi-city">City / Town</label>
+                                    <input
+                                        id="poi-city"
+                                        name="city_town"
+                                        type="text"
+                                        value={poiFormData.city_town}
+                                        onChange={handlePoiChange}
+                                        placeholder="City or town"
+                                    />
+                                </div>
+
 
                                 <div className="form-control">
                                     <label htmlFor="poi-description">Description</label>
