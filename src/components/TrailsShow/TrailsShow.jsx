@@ -10,6 +10,7 @@ import TrailMap from '../TrailMap/TrailMap'
 
 
 
+
 const TrailsShow = () => {
 
     const { trailId } = useParams()
@@ -20,7 +21,27 @@ const TrailsShow = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [errorData, setErrorData] = useState({})
     const [newPoiLocation, setNewPoiLocation] = useState(null)
-    console.log('NEW POI LOCATION IN SHOW:', newPoiLocation)
+
+
+    const [poiFormData, setPoiFormData] = useState({
+        name: '',
+        description: '',
+    })
+
+
+    const handlePoiChange = (e) => {
+        const { name, value } = e.target
+
+        console.log('Typing:', {
+            field: name,
+            value: value,
+        })
+        setPoiFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }))
+    }
+
 
     useEffect(() => {
         const getTrail = async () => {
@@ -152,7 +173,10 @@ const TrailsShow = () => {
                                     <label htmlFor="poi-name">Name</label>
                                     <input
                                         id="poi-name"
+                                        name="name"
                                         type="text"
+                                        value={poiFormData.name}
+                                        onChange={handlePoiChange}
                                         placeholder="POI name"
                                     />
                                 </div>
@@ -161,6 +185,9 @@ const TrailsShow = () => {
                                     <label htmlFor="poi-description">Description</label>
                                     <textarea
                                         id="poi-description"
+                                        name="description"
+                                        value={poiFormData.description}
+                                        onChange={handlePoiChange}
                                         placeholder="Describe this point of interest"
                                         rows="3"
                                     />

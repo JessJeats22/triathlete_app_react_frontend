@@ -13,3 +13,15 @@ export const poisForTrail = (trailId) => {
     },
   })
 }
+
+export const createPoiForTrail = (trailId, poiData) => {
+  return api.post(
+    `trails/${trailId}/pois/`,
+    poiData,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  )
+}
