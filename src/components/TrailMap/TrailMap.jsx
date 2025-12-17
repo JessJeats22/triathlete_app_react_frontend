@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
-const TrailMap = ({ latitude, longitude, pois = [] }) => {
+const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
   // Safety check (important for real apps)
   if (!latitude || !longitude) {
     return <p>Map location unavailable.</p>
