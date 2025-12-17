@@ -138,7 +138,40 @@ const TrailsShow = () => {
 
                     </div>
 
-                    
+                    {newPoiLocation && (
+                        <section className="poi-form">
+                            <h3>Add a Point of Interest</h3>
+
+                            <p>
+                                Location: {newPoiLocation.lat.toFixed(5)},{" "}
+                                {newPoiLocation.lng.toFixed(5)}
+                            </p>
+
+                            <form>
+                                <div className="form-control">
+                                    <label htmlFor="poi-name">Name</label>
+                                    <input
+                                        id="poi-name"
+                                        type="text"
+                                        placeholder="POI name"
+                                    />
+                                </div>
+
+                                <div className="form-control">
+                                    <label htmlFor="poi-description">Description</label>
+                                    <textarea
+                                        id="poi-description"
+                                        placeholder="Describe this point of interest"
+                                        rows="3"
+                                    />
+                                </div>
+
+                                <button type="submit">Save POI</button>
+                            </form>
+                        </section>
+                    )}
+
+
                 </section>
 
 
