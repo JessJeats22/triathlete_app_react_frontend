@@ -8,6 +8,7 @@ import TrailsDelete from '../TrailsDelete/TrailsDelete'
 import TrailPOIs from '../TrailPOIs/TrailPOIs'
 import TrailMap from '../TrailMap/TrailMap'
 import { createPoiForTrail } from '../../services/pois'
+import { TRAIL_TYPE_DISPLAY } from '../../utils/trailTypeDisplay'
 
 
 
@@ -107,12 +108,12 @@ const TrailsShow = () => {
         <div className="trail-details-container">
             <h1 className="trail-title">{trail.name}</h1>
 
-           
+
             <div className="trail-main-layout">
 
-        
+
                 <section className="trail-box trail-details-box">
-                   
+
 
                     <div className="trail-details-header">
                         <ul className="trail-meta">
@@ -122,7 +123,10 @@ const TrailsShow = () => {
                             </li>
                             <li>
                                 <span className="label">Trail Type</span>
-                                <span className="value">{trail.trail_type}</span>
+                                <span className="value">
+                                    {TRAIL_TYPE_DISPLAY[trail.trail_type]?.emoji}{' '}
+                                    {TRAIL_TYPE_DISPLAY[trail.trail_type]?.label}
+                                </span>
                             </li>
                             <li>
                                 <span className="label">Country</span>
@@ -164,9 +168,9 @@ const TrailsShow = () => {
                     </div>
                 </section>
 
-              
+
                 <aside className="trail-box trail-poi-box">
-                  
+
 
                     <TrailPOIs trailId={trailId} />
 
@@ -207,7 +211,7 @@ const TrailsShow = () => {
 
             </div>
 
-        
+
             <section className="trail-box trail-map-box">
                 <h2 className="box-title">Map</h2>
 

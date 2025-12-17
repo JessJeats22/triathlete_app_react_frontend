@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { trailsIndex } from '../../services/trails'
 import { Link } from 'react-router'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import { TRAIL_TYPE_DISPLAY } from '../../utils/trailTypeDisplay'
 
 const TrailsIndex = () => {
 
@@ -100,6 +101,15 @@ const TrailsIndex = () => {
                             key={trail.id}
                             className="trail-card"
                         >
+                            {trail.images?.length > 0 && (
+                                <div className="trail-card-image">
+                                    <img
+                                        src={trail.images[0]}
+                                        alt={trail.name}
+                                        loading="lazy"
+                                    />
+                                </div>
+                            )}
                             <h2 className="trail-title">{trail.name}</h2>
 
                             <p className="trail-location">
@@ -107,9 +117,11 @@ const TrailsIndex = () => {
                             </p>
 
                             <div className="trail-meta">
-                                <span className={`trail-type ${trail.trail_type}`}>
-                                    {trail.trail_type}
+                                <span className="value">
+                                    {TRAIL_TYPE_DISPLAY[trail.trail_type]?.emoji}{' '}
+                                    {TRAIL_TYPE_DISPLAY[trail.trail_type]?.label}
                                 </span>
+
 
                                 {trail.distance_km && (
                                     <span className="trail-distance">

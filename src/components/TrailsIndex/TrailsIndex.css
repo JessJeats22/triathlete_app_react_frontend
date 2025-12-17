@@ -156,3 +156,54 @@
   font-size: 0.95rem;
   margin-top: 1rem;
 }
+
+/* CARD */
+.trail-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden; /* important for image rounding */
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.trail-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.trail-card-image {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+}
+
+.trail-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CARD CONTENT */
+.trail-card .trail-title {
+  font-size: 1.1rem;
+  margin: 0.75rem 1rem 0.25rem;
+}
+
+.trail-location {
+  font-size: 0.9rem;
+  color: #5f7f78;
+  margin: 0 1rem 0.5rem;
+}
+
+.trail-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem 1rem;
+  font-size: 0.85rem;
+}
+
