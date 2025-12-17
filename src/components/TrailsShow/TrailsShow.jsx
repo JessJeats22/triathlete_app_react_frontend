@@ -5,6 +5,8 @@ import { trailsShow } from '../../services/trails'
 import { UserContext } from '../../contexts/UserContext'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import TrailsDelete from '../TrailsDelete/TrailsDelete'
+import TrailPOIs from '../TrailPOIs/TrailPOIs'
+
 
 const TrailsShow = () => {
 
@@ -115,7 +117,13 @@ const TrailsShow = () => {
                             Back to All Trails
                         </Link>
                     </div>
+
+                    <div>
+                        <TrailPOIs trailId={trailId} />
+                    </div>
                 </section>
+
+                
             )
             }
         </div >
