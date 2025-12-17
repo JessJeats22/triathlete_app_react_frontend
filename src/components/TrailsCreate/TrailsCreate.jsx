@@ -6,10 +6,12 @@ import { UserContext } from '../../contexts/UserContext.jsx'
 import countries from 'world-countries'
 import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
+
 const TrailsCreate = () => {
     const { user } = useContext(UserContext)
 
-    
+
+
     const [errorData, setErrorData] = useState({})
     const [formData, setFormData] = useState({
         name: '',
@@ -123,16 +125,7 @@ const TrailsCreate = () => {
                     />
                 </div>
 
-                <div className="form-control">
-                    <label htmlFor="gpx_file">GPX File</label>
-                    <input
-                        type="file"
-                        id="gpx_file"
-                        accept=".gpx"
-                        onChange={(e) => setGpxFile(e.target.files[0])}
-                        required
-                    />
-                </div>
+
 
                 <div className="form-control">
                     <label htmlFor="description">Description</label>
@@ -145,6 +138,8 @@ const TrailsCreate = () => {
                         rows="4"
                     />
                 </div>
+
+              
 
                 <ImageUploadField
                     labelText="Upload Trail image"
