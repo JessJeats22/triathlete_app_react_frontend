@@ -12,3 +12,12 @@ export const uploadImage = (file) => {
 
 
 }
+
+const RAW_BASE_URL = import.meta.env.VITE_CLOUDINARY_RAW_URL
+
+export const uploadGpx = (file) => {
+  return axios.postForm(RAW_BASE_URL, {
+    file,
+    upload_preset: import.meta.env.VITE_RAW_UPLOAD_PRESET,
+  })
+}

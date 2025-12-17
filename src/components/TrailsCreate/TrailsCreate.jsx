@@ -9,7 +9,7 @@ import ImageUploadField from '../ImageUploadField/ImageUploadField'
 const TrailsCreate = () => {
     const { user } = useContext(UserContext)
 
-    const [gpxFile, setGpxFile] = useState(null)
+    
     const [errorData, setErrorData] = useState({})
     const [formData, setFormData] = useState({
         name: '',
