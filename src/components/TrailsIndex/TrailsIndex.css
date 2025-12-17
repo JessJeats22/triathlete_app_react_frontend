@@ -1,96 +1,158 @@
 :root {
-  --green-100: #dcfce7;
-  --green-600: #15803d;
+  /* Brand */
+  --brand-primary: #5a80e9;
+  --brand-accent: #1f6f5c;
 
-  --green-200: #bbf7d0;
-  --green-800: #14532d;
+  /* Neutrals */
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --border-soft: #e5e7eb;
+  --text-main: #1f2937;
+  --text-muted: #64748b;
 
-  --blue-100: #dbeafe;
-  --blue-700: #5a80e9;
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.08);
+
+  /* Trail type colours */
+  --run-bg: #fff7ed;
+  --run-fg: #9a3412;
+
+  --bike-bg: #ecfdf5;
+  --bike-fg: #047857;
+
+  --swim-bg: #e0f2fe;
+  --swim-fg: #0369a1;
 }
 
-
+/* Page container */
 .trails-index-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 2.5rem 1.5rem;
+  background: var(--bg-page);
 }
 
-
+/* Page title */
 .page-title {
   font-size: 2.2rem;
   margin-bottom: 2rem;
-  color: var(--blue-700);
+  color: var(--brand-primary);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
+/* Filters */
+.trails-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.trails-filters select {
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.9rem;
+  background: white;
+  color: var(--text-main);
+}
+
+.trails-filters select:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(90, 128, 233, 0.15);
+}
+
+/* Grid */
 .trails-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.75rem;
 }
 
+/* Card */
 .trail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
   background: var(--bg-card);
-  border-radius: 14px;
+  border-radius: 16px;
   border: 1px solid var(--border-soft);
   padding: 1.5rem;
-  transition: all 0.25s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  box-shadow: var(--shadow-sm);
 }
 
 .trail-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
-  border-color: var(--green-400);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(90, 128, 233, 0.3);
 }
 
-.trail-card-content h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--blue-700);
+/* Card content */
+.trail-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
-.trail-card-content p {
+.trail-location {
   font-size: 0.9rem;
   color: var(--text-muted);
 }
 
-.trail-type {
-  display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  text-transform: capitalize;
-  letter-spacing: 0.02em;
-  font-weight: 500;
+/* Meta row */
+.trail-meta {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  align-items: center;
 }
 
+/* Pills */
+.trail-type,
+.trail-distance {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
 
+/* Trail type variants */
 .trail-type.run {
-  background: var(--green-100);
-  color: var(--green-600);
+  background: var(--run-bg);
+  color: var(--run-fg);
 }
 
 .trail-type.bike {
-   background: #09e051;
-  color: var(--blue-700);
+  background: var(--bike-bg);
+  color: var(--bike-fg);
 }
 
 .trail-type.swim {
-  background: #7cd9e5;
-  color: #0369a1;
+  background: var(--swim-bg);
+  color: var(--swim-fg);
 }
 
-.trails-filters {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+/* Distance pill */
+.trail-distance {
+  background: #f1f5f9;
+  color: #334155;
 }
 
-.trails-filters select {
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 0.9rem;
+/* Error message */
+.error-message {
+  color: #b00020;
+  font-size: 0.95rem;
+  margin-top: 1rem;
 }

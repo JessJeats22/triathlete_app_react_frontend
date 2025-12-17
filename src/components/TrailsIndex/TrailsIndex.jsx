@@ -100,12 +100,22 @@ const TrailsIndex = () => {
                             key={trail.id}
                             className="trail-card"
                         >
-                            <div className="trail-card-content">
-                                <h2>{trail.name}</h2>
-                                <p className={`trail-type ${trail.trail_type}`}>
+                            <h2 className="trail-title">{trail.name}</h2>
+
+                            <p className="trail-location">
+                                {trail.city_town}, {trail.country}
+                            </p>
+
+                            <div className="trail-meta">
+                                <span className={`trail-type ${trail.trail_type}`}>
                                     {trail.trail_type}
-                                </p>
-                                <p>{trail.country}...</p>
+                                </span>
+
+                                {trail.distance_km && (
+                                    <span className="trail-distance">
+                                        {trail.distance_km} km
+                                    </span>
+                                )}
                             </div>
                         </Link>
                     ))}
