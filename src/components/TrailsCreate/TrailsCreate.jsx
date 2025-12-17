@@ -5,6 +5,7 @@ import { useNavigate, Navigate } from 'react-router'
 import { UserContext } from '../../contexts/UserContext.jsx'
 import countries from 'world-countries'
 import ImageUploadField from '../ImageUploadField/ImageUploadField'
+import GpxUploadField from '../GpxUploadField/GpxUploadField'
 
 
 const TrailsCreate = () => {
@@ -43,6 +44,14 @@ const TrailsCreate = () => {
             images: [...prev.images, imageURL],
         }));
     };
+
+    const setGpxUrl = (url) => {
+        setFormData(prev => ({
+            ...prev,
+            gpx_url: url,
+        }))
+    }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -125,6 +134,15 @@ const TrailsCreate = () => {
                     />
                 </div>
 
+                <div className="form-control">
+                    <GpxUploadField
+                        labelText="Upload GPX route"
+                        setGpxUrl={setGpxUrl}
+                        gpxUrl={formData.gpx_url}
+                    />
+                </div>
+
+
 
 
                 <div className="form-control">
@@ -139,7 +157,7 @@ const TrailsCreate = () => {
                     />
                 </div>
 
-              
+
 
                 <ImageUploadField
                     labelText="Upload Trail image"
@@ -147,6 +165,7 @@ const TrailsCreate = () => {
                     setImage={setTrailImage}
                     imageURL={formData.images}
                 />
+
 
 
                 <button type="submit">Create Trail</button>
