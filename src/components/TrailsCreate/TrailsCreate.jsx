@@ -9,6 +9,7 @@ import ImageUploadField from '../ImageUploadField/ImageUploadField'
 const TrailsCreate = () => {
     const { user } = useContext(UserContext)
 
+    const [gpxFile, setGpxFile] = useState(null)
     const [errorData, setErrorData] = useState({})
     const [formData, setFormData] = useState({
         name: '',
@@ -17,6 +18,7 @@ const TrailsCreate = () => {
         city_town: '',
         description: '',
         images: [],
+        gpx_url: '',
     })
 
     const navigate = useNavigate()
@@ -32,7 +34,7 @@ const TrailsCreate = () => {
         setFormData({ ...formData, [name]: value })
     }
 
-      // IMAGE UPLOADER HANDLER
+    // IMAGE UPLOADER HANDLER
     const setTrailImage = (imageURL) => {
         setFormData(prev => ({
             ...prev,
@@ -117,6 +119,17 @@ const TrailsCreate = () => {
                         placeholder="City or town"
                         value={formData.city_town}
                         onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="gpx_file">GPX File</label>
+                    <input
+                        type="file"
+                        id="gpx_file"
+                        accept=".gpx"
+                        onChange={(e) => setGpxFile(e.target.files[0])}
                         required
                     />
                 </div>
