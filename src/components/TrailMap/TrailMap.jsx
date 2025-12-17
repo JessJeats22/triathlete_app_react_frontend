@@ -27,11 +27,10 @@ function FitBounds({ route }) {
 }
 
 
-const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
+const TrailMap = ({ latitude, longitude, gpxUrl, pois,  onMapClick = [] }) => {
 
     const [route, setRoute] = useState([])
-    const [newPoiLocation, setNewPoiLocation] = useState(null)
-
+   
 
     useEffect(() => {
         if (!gpxUrl) return
@@ -99,13 +98,7 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                 </Marker>
             )}
 
-            {newPoiLocation && (
-                <Marker position={[newPoiLocation.lat, newPoiLocation.lng]}>
-                    <Popup>
-                        New POI location
-                    </Popup>
-                </Marker>
-            )}
+
 
 
 
@@ -120,11 +113,11 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                     </Popup>
                 </Marker>
 
-
-
             ))}
 
-            <MapClickHandler onMapClick={setNewPoiLocation} />
+
+
+            <MapClickHandler onMapClick={onMapClick} />
 
 
         </MapContainer>

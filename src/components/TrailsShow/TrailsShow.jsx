@@ -19,6 +19,8 @@ const TrailsShow = () => {
     const [trail, setTrail] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [errorData, setErrorData] = useState({})
+    const [newPoiLocation, setNewPoiLocation] = useState(null)
+    console.log('NEW POI LOCATION IN SHOW:', newPoiLocation)
 
     useEffect(() => {
         const getTrail = async () => {
@@ -130,10 +132,13 @@ const TrailsShow = () => {
                             longitude={trail.longitude}
                             gpxUrl={trail.gpx_url}
                             pois={trail.points_of_interest}
+                            onMapClick={setNewPoiLocation}
 
                         />
 
                     </div>
+
+                    
                 </section>
 
 
