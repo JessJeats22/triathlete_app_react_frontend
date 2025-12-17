@@ -81,3 +81,16 @@
   background: #7cd9e5;
   color: #0369a1;
 }
+
+.trails-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.trails-filters select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+}

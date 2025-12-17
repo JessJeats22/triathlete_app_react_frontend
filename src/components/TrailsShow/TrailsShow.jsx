@@ -188,7 +188,7 @@ const TrailsShow = () => {
                             longitude={trail.longitude}
                             gpxUrl={trail.gpx_url}
                             pois={trail.points_of_interest}
-                            onMapClick={setNewPoiLocation}
+                            onMapClick={user ? setNewPoiLocation : null}
 
                         />
 

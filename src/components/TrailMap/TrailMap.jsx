@@ -6,7 +6,9 @@ import { useMapEvents } from 'react-leaflet'
 function MapClickHandler({ onMapClick }) {
     useMapEvents({
         click(e) {
-            onMapClick(e.latlng)
+            if (onMapClick) {
+                onMapClick(e.latlng)
+            }
         },
     })
 
@@ -27,7 +29,7 @@ function FitBounds({ route }) {
 }
 
 
-const TrailMap = ({ latitude, longitude, gpxUrl, pois,  onMapClick = [] }) => {
+const TrailMap = ({ latitude, longitude, gpxUrl, pois,  onMapClick = null }) => {
 
     const [route, setRoute] = useState([])
    
