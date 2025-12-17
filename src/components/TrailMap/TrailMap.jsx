@@ -4,13 +4,13 @@ import { gpx as gpxToGeoJSON } from '@tmcw/togeojson'
 import { useMapEvents } from 'react-leaflet'
 
 function MapClickHandler({ onMapClick }) {
-  useMapEvents({
-    click(e) {
-      onMapClick(e.latlng)
-    },
-  })
+    useMapEvents({
+        click(e) {
+            onMapClick(e.latlng)
+        },
+    })
 
-  return null
+    return null
 }
 
 
@@ -99,6 +99,15 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                 </Marker>
             )}
 
+            {newPoiLocation && (
+                <Marker position={[newPoiLocation.lat, newPoiLocation.lng]}>
+                    <Popup>
+                        New POI location
+                    </Popup>
+                </Marker>
+            )}
+
+
 
             {pois.map(poi => (
                 <Marker
@@ -111,10 +120,12 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
                     </Popup>
                 </Marker>
 
+
+
             ))}
 
             <MapClickHandler onMapClick={setNewPoiLocation} />
-            
+
 
         </MapContainer>
     )
