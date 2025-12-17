@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <header className="navbar">
             <div className="navbar__brand">
-                <Link to="/">🗺️ TriAtlas</Link>
+                <Link to="/">🗺️ TriTrails</Link>
             </div>
 
             <nav className="navbar__links">

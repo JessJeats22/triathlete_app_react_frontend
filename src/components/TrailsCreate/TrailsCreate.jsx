@@ -72,106 +72,120 @@ const TrailsCreate = () => {
         return <Navigate to="/sign-in" />
     }
 
-    return (
-        <>
-            <h1>Add your own Trail!</h1>
+   return (
+    <div className="trail-create-container">
+      <h1 className="trail-create-title">Create a New Trail</h1>
 
-            <form onSubmit={handleSubmit}>
-                <div className="form-control">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+      <form onSubmit={handleSubmit} className="trail-create-card">
 
-                <div className="form-control">
-                    <label htmlFor="trail_type">Trail Type</label>
-                    <select
-                        name="trail_type"
-                        id="trail_type"
-                        value={formData.trail_type}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select trail type</option>
-                        <option value="swim">Swim</option>
-                        <option value="bike">Bike</option>
-                        <option value="run">Run</option>
-                    </select>
-                </div>
-
-                <div className="form-control">
-                    <label htmlFor="country">Country</label>
-                    <select
-                        name="country"
-                        id="country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        required>
-                        <option value="">Select country</option>
-                        {countryOptions.map(country => (
-                            <option key={country} value={country}>{country}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="form-control">
-                    <label htmlFor="city_town">City / Town</label>
-                    <input
-                        type="text"
-                        name="city_town"
-                        id="city_town"
-                        placeholder="City or town"
-                        value={formData.city_town}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                <div className="form-control">
-                    <GpxUploadField
-                        labelText="Upload GPX route"
-                        setGpxUrl={setGpxUrl}
-                        gpxUrl={formData.gpx_url}
-                    />
-                </div>
+    
+        <section className="form-section">
 
 
+          <div className="form-control">
+            <label>Name</label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Trail name"
+              required
+            />
+          </div>
+
+          <div className="form-control">
+            <label>Trail Type</label>
+            <select
+              name="trail_type"
+              value={formData.trail_type}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select trail type</option>
+              <option value="swim">Swim</option>
+              <option value="bike">Bike</option>
+              <option value="run">Run</option>
+            </select>
+          </div>
+        </section>
+
+     
+        <section className="form-section">
 
 
-                <div className="form-control">
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        name="description"
-                        id="description"
-                        placeholder="Describe the trail..."
-                        value={formData.description}
-                        onChange={handleChange}
-                        rows="4"
-                    />
-                </div>
+          <div className="form-control">
+            <label>Country</label>
+            <select
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select country</option>
+              {countryOptions.map(country => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-control">
+            <label>City / Town</label>
+            <input
+              name="city_town"
+              value={formData.city_town}
+              onChange={handleChange}
+              placeholder="City or town"
+              required
+            />
+          </div>
+        </section>
+
+        <section className="form-section">
 
 
+          <GpxUploadField
+            labelText="Upload GPX route"
+            setGpxUrl={setGpxUrl}
+            gpxUrl={formData.gpx_url}
+          />
+        </section>
 
-                <ImageUploadField
-                    labelText="Upload Trail image"
-                    fieldName="image"
-                    setImage={setTrailImage}
-                    imageURL={formData.images}
-                />
+        <section className="form-section">
 
+          <div className="form-control">
+            <textarea
+              name="description"
+              rows="4"
+              placeholder="Describe the trail..."
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
+        </section>
 
+ 
+        <section className="form-section">
 
-                <button type="submit">Create Trail</button>
-            </form>
-        </>
-    )
+          <ImageUploadField
+            labelText="Upload trail image"
+            fieldName="image"
+            setImage={setTrailImage}
+            imageURL={formData.images}
+          />
+        </section>
+
+        {errorData.message && (
+          <p className="form-error">{errorData.message}</p>
+        )}
+
+        <button type="submit" className="primary-btn">
+          Create Trail
+        </button>
+      </form>
+    </div>
+  )
 }
 
 export default TrailsCreate

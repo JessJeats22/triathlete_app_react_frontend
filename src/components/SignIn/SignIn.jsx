@@ -16,14 +16,15 @@ const SignIn = () => {
         password: ""
     })
 
-    const [errorData, setErrorData] = useState({})
+    const [error, setError] = useState('')
 
 
 
     const handleChange = (e) => {
         const input = e.target
         setFormData({ ...formData, [input.name]: input.value })
-        setErrorData({ ...errorData, [input.name]: '' })
+        setError('')
+
     }
 
 
@@ -35,47 +36,52 @@ const SignIn = () => {
 
             const response = await signInService(formData)
 
-           
+
             const token = response.data.access
 
             if (token) {
                 setToken(token)
                 setUser(getUserFromToken())
             }
-       
+
             navigate('/')
 
 
         } catch (error) {
             console.log(error)
-            if (error.response.status === 500) {
-                setErrorData({ message: 'Something went wrong. Please try again.' })
-            } else {
-                setErrorData(error.response.data)
-            }
+
+            const message =
+                error.response?.data?.detail ||
+                'Invalid username or password.'
+
+            setError(message)
+
         }
     }
 
     return (
         <>
             <h1>Sign In</h1>
+
             <form onSubmit={handleSubmit}>
 
                 <div className="form-control">
                     <label hidden htmlFor="username">Username</label>
                     <input type="text" name="username" id="username" placeholder="Username" required onChange={handleChange} />
-                    {errorData.username && <p className='error-message'>{errorData.username}</p>}
+
                 </div>
 
                 <div className="form-control">
                     <label hidden htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Password" required onChange={handleChange} />
-                    {errorData.password && <p className='error-message'>{errorData.password}</p>}
+
                 </div>
+
+                {error && <p className="error-message">{error}</p>}
 
                 <button type="submit">Sign in</button>
 
-                {errorData.message && <p className='error-message'>{errorData.message}</p>}
+           
 
             </form>
 

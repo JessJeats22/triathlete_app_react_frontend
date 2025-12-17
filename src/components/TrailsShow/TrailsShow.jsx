@@ -27,8 +27,6 @@ const TrailsShow = () => {
 
     const [poiFormData, setPoiFormData] = useState({
         name: '',
-        category_type: '',
-        city_town: '',
         description: '',
     })
 
@@ -107,92 +105,70 @@ const TrailsShow = () => {
 
     return (
         <div className="trail-details-container">
-            <h1 className="trail-title">
-                {trail?.name || 'Trail Details'}
-            </h1>
+            <h1 className="trail-title">{trail.name}</h1>
 
-            {errorData.message ? (
-                <p className="error-message">{errorData.message}</p>
-            ) : isLoading ? (
-                <LoadingIcon />
-            ) : !trail ? (
-                <p>Nothing to display.</p>
-            ) : (
-                <section className="trail-details-card">
-                    <ul>
-                        <li>
-                            <span className="label">Created by:</span>
-                            <span className="value">{trail.created_by.username}</span>
-                        </li>
+           
+            <div className="trail-main-layout">
 
-                        <li>
-                            <span className="label">Trail Type:</span>
-                            <span className="value">{trail.trail_type}</span>
-                        </li>
+        
+                <section className="trail-box trail-details-box">
+                   
 
-                        <li>
-                            <span className="label">Country:</span>
-                            <span className="value">{trail.country}</span>
-                        </li>
-
-                        <li>
-                            <span className="label">City / Town:</span>
-                            <span className="value">{trail.city_town}</span>
-                        </li>
-
-                        {trail.description && (
+                    <div className="trail-details-header">
+                        <ul className="trail-meta">
                             <li>
-                                <span className="label">Description:</span>
-                                <span className="value">{trail.description}</span>
+                                <span className="label">Created by</span>
+                                <span className="value">{trail.created_by.username}</span>
                             </li>
-                        )}
+                            <li>
+                                <span className="label">Trail Type</span>
+                                <span className="value">{trail.trail_type}</span>
+                            </li>
+                            <li>
+                                <span className="label">Country</span>
+                                <span className="value">{trail.country}</span>
+                            </li>
+                            <li>
+                                <span className="label">City / Town</span>
+                                <span className="value">{trail.city_town}</span>
+                            </li>
+                        </ul>
 
                         {trail.images?.length > 0 && (
-                            <li className="image-item">
-                                <span className="label"></span>
-                                <img
-                                    src={trail.images[0]}
-                                    alt={trail.name}
-                                    className="trail-image"
-                                />
-                            </li>
+                            <img
+                                src={trail.images[0]}
+                                alt={trail.name}
+                                className="trail-image"
+                            />
                         )}
-                    </ul>
+                    </div>
+
+                    {trail.description && (
+                        <div className="trail-description">
+                            <p>{trail.description}</p>
+                        </div>
+                    )}
 
                     <div className="trail-actions">
-                        {user && trail?.created_by && user.id === trail.created_by.id && (
+                        {user && user.id === trail.created_by.id && (
                             <>
-                                <Link
-                                    to={`/trails/${trailId}/edit`}
-                                    className="btn btn-primary"
-                                >
+                                <Link to={`/trails/${trailId}/edit`} className="btn btn-primary">
                                     Edit Trail
                                 </Link>
-
                                 <TrailsDelete trailId={trailId} />
                             </>
                         )}
-
                         <Link to="/trails" className="btn btn-secondary">
-                            Back to All Trails
+                            Back to Trails
                         </Link>
                     </div>
+                </section>
 
-                    <div>
-                        <TrailPOIs trailId={trailId} />
-                    </div>
+              
+                <aside className="trail-box trail-poi-box">
+                  
 
-                    <div>
-                        <TrailMap
-                            latitude={trail.latitude}
-                            longitude={trail.longitude}
-                            gpxUrl={trail.gpx_url}
-                            pois={trail.points_of_interest}
-                            onMapClick={user ? setNewPoiLocation : null}
-
-                        />
-
-                    </div>
+                    <TrailPOIs trailId={trailId} />
 
                     {newPoiLocation && (
                         <section className="poi-form">
@@ -205,51 +181,21 @@ const TrailsShow = () => {
 
                             <form onSubmit={handlePoiSubmit}>
                                 <div className="form-control">
-                                    <label htmlFor="poi-name">Name</label>
+                                    <label>Name</label>
                                     <input
-                                        id="poi-name"
                                         name="name"
-                                        type="text"
                                         value={poiFormData.name}
                                         onChange={handlePoiChange}
-                                        placeholder="POI name"
                                     />
                                 </div>
 
                                 <div className="form-control">
-                                    <label htmlFor="poi-category">Category</label>
-                                    <input
-                                        id="poi-category"
-                                        name="category_type"
-                                        type="text"
-                                        value={poiFormData.category_type}
-                                        onChange={handlePoiChange}
-                                        placeholder="e.g. Viewpoint, Water, Cafe"
-                                    />
-                                </div>
-
-                                <div className="form-control">
-                                    <label htmlFor="poi-city">City / Town</label>
-                                    <input
-                                        id="poi-city"
-                                        name="city_town"
-                                        type="text"
-                                        value={poiFormData.city_town}
-                                        onChange={handlePoiChange}
-                                        placeholder="City or town"
-                                    />
-                                </div>
-
-
-                                <div className="form-control">
-                                    <label htmlFor="poi-description">Description</label>
+                                    <label>Description</label>
                                     <textarea
-                                        id="poi-description"
                                         name="description"
+                                        rows="3"
                                         value={poiFormData.description}
                                         onChange={handlePoiChange}
-                                        placeholder="Describe this point of interest"
-                                        rows="3"
                                     />
                                 </div>
 
@@ -257,14 +203,23 @@ const TrailsShow = () => {
                             </form>
                         </section>
                     )}
+                </aside>
 
+            </div>
 
-                </section>
+        
+            <section className="trail-box trail-map-box">
+                <h2 className="box-title">Map</h2>
 
-
-            )
-            }
-        </div >
+                <TrailMap
+                    latitude={trail.latitude}
+                    longitude={trail.longitude}
+                    gpxUrl={trail.gpx_url}
+                    pois={trail.points_of_interest}
+                    onMapClick={user ? setNewPoiLocation : null}
+                />
+            </section>
+        </div>
     )
 }
 

@@ -10,7 +10,7 @@ const HomePage = () => {
     <div className="home-container">
       <section className="hero">
         <h1 className="hero-title">
-          🌍 TriAtlas
+          🌍 TriTrails
         </h1>
 
         <p className="hero-tagline">
@@ -20,7 +20,7 @@ const HomePage = () => {
 
       <section className="home-content">
         <p>
-          <strong>TriAtlas</strong> is a community-built platform for
+          <strong>TriTrails</strong> is a community-built platform for
           <strong> triathletes who travel</strong> — whether you’re on holiday,
           visiting friends for the weekend, or working remotely in a new city.
         </p>

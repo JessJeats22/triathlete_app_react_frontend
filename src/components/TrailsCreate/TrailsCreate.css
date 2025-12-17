@@ -1,12 +1,82 @@
+.trail-create-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.trail-create-title {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: #1f6f5c;
+}
+
+
+.trail-create-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+}
+
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #2f3e3b;
+}
+
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-control label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #375f57;
+}
+
 .form-control input,
-.form-control textarea,
-.form-control select {
-  width: 100%;
-  padding: 0.75rem;
+.form-control select,
+.form-control textarea {
+  padding: 0.6rem 0.7rem;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccd9d6;
+  font-size: 0.95rem;
+}
+
+.form-control input:focus,
+.form-control select:focus,
+.form-control textarea:focus {
+  outline: none;
+  border-color: #1f6f5c;
+}
+
+
+.primary-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: #1f6f5c;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
   font-size: 1rem;
-  background-color: #fff;
-  color: #333;
-  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: #195b4b;
+}
+
+
+.form-error {
+  color: #b00020;
+  margin-bottom: 1rem;
 }
