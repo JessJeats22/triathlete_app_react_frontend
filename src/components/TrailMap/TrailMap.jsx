@@ -1,47 +1,80 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
+import { useEffect, useState } from 'react'
+import { gpx as gpxToGeoJSON } from '@tmcw/togeojson'
+
 
 const TrailMap = ({ latitude, longitude, gpxUrl, pois = [] }) => {
-  // Safety check (important for real apps)
-  if (!latitude || !longitude) {
-    return <p>Map location unavailable.</p>
-  }
+    // Safety check (important for real apps)
+    if (!latitude || !longitude) {
+        return <p>Map location unavailable.</p>
+    }
 
-  const center = [latitude, longitude]
+    const [route, setRoute] = useState([])
 
-  return (
-    <MapContainer
-      center={center}
-      zoom={13}
-      scrollWheelZoom={false}
-      style={{ height: '400px', width: '100%', borderRadius: '16px' }}
-    >
-    
-      <TileLayer
-        attribution='&copy; OpenStreetMap contributors'
-        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-      />
+    const center = [latitude, longitude]
 
-      
-      <Marker position={center}>
-        <Popup>
-          Trail start
-        </Popup>
-      </Marker>
+    useEffect(() => {
+        if (!gpxUrl) return
 
-    
-      {pois.map(poi => (
-        <Marker
-          key={poi.id}
-          position={[poi.latitude, poi.longitude]}
+        const loadGpx = async () => {
+            try {
+                const res = await fetch(gpxUrl)
+                const text = await res.text()
+
+                const parser = new DOMParser()
+                const xml = parser.parseFromString(text, 'application/xml')
+
+                const geojson = gpxToGeoJSON(xml)
+
+                const coords =
+                    geojson.features[0].geometry.coordinates.map(
+                        ([lng, lat]) => [lat, lng]
+                    )
+
+                setRoute(coords)
+            } catch (err) {
+                console.error('Failed to load GPX', err)
+            }
+        }
+
+        loadGpx()
+    }, [gpxUrl])
+
+
+    return (
+        <MapContainer
+            center={center}
+            zoom={13}
+            scrollWheelZoom={false}
+            style={{ height: '400px', width: '100%', borderRadius: '16px' }}
         >
-          <Popup>
-            <strong>{poi.name}</strong>
-            {poi.description && <p>{poi.description}</p>}
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  )
+
+            <TileLayer
+                attribution='&copy; OpenStreetMap contributors'
+                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            />
+
+
+            <Marker position={center}>
+                <Popup>
+                    Trail start
+                </Popup>
+            </Marker>
+
+
+            {pois.map(poi => (
+                <Marker
+                    key={poi.id}
+                    position={[poi.latitude, poi.longitude]}
+                >
+                    <Popup>
+                        <strong>{poi.name}</strong>
+                        {poi.description && <p>{poi.description}</p>}
+                    </Popup>
+                </Marker>
+            ))}
+        </MapContainer>
+    )
 }
 
 export default TrailMap
