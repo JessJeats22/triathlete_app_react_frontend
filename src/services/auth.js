@@ -12,3 +12,10 @@ export const signInService = (formData) => {
   return api.post('/sign-in/', formData)
 }
 
+export const getMyProfile = () => {
+  return api.get('me/', {
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  })
+}
