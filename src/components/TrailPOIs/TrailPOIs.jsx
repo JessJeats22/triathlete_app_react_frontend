@@ -1,12 +1,53 @@
 import './TrailPOIs.css'
 import { useEffect, useState, useContext } from 'react'
-import { poisForTrail } from '../../services/pois'
+import { poisForTrail, createPoiForTrail } from '../../services/pois'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import { UserContext } from '../../contexts/UserContext'
 
-const TrailPOIs = ({ trailId }) => {
+
+const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
   const [pois, setPois] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorData, setErrorData] = useState({})
+
+  const { user } = useContext(UserContext)
+
+  const [poiFormData, setPoiFormData] = useState({
+    name: '',
+    description: '',
+  })
+
+  const handlePoiChange = (e) => {
+  const { name, value } = e.target
+  setPoiFormData(prev => ({
+    ...prev,
+    [name]: value,
+  }))
+}
+
+const handlePoiSubmit = async (e) => {
+  e.preventDefault()
+
+  if (!newPoiLocation) return
+
+  try {
+    const { data } = await createPoiForTrail(trailId, {
+      name: poiFormData.name,
+      description: poiFormData.description,
+      latitude: newPoiLocation.lat,
+      longitude: newPoiLocation.lng,
+    })
+
+    // Optimistically update POI list
+    setPois(prev => [...prev, data])
+
+    setPoiFormData({ name: '', description: '' })
+    setNewPoiLocation(null)
+  } catch (err) {
+    console.error('Failed to create POI', err)
+  }
+}
+
 
   useEffect(() => {
     const getPOIs = async () => {
@@ -61,6 +102,41 @@ const TrailPOIs = ({ trailId }) => {
           ))}
         </ul>
       )}
+
+      {user && newPoiLocation && (
+  <section className="poi-form">
+    <h3>Add a Point of Interest</h3>
+
+    <p>
+      Location: {newPoiLocation.lat.toFixed(5)},{" "}
+      {newPoiLocation.lng.toFixed(5)}
+    </p>
+
+    <form onSubmit={handlePoiSubmit}>
+      <div className="form-control">
+        <label>Name</label>
+        <input
+          name="name"
+          value={poiFormData.name}
+          onChange={handlePoiChange}
+        />
+      </div>
+
+      <div className="form-control">
+        <label>Description</label>
+        <textarea
+          name="description"
+          rows="3"
+          value={poiFormData.description}
+          onChange={handlePoiChange}
+        />
+      </div>
+
+      <button type="submit">Save POI</button>
+    </form>
+  </section>
+)}
+
     </section>
   )
 }

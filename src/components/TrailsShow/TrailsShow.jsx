@@ -30,11 +30,6 @@ const TrailsShow = () => {
     const images = trail?.images || []
 
 
-    const [poiFormData, setPoiFormData] = useState({
-        name: '',
-        description: '',
-    })
-
     const handleDeleteImage = async (imageUrl) => {
         try {
             await deleteTrailImage(trailId, imageUrl)
@@ -76,50 +71,6 @@ const TrailsShow = () => {
     }
 
 
-    const handlePoiChange = (e) => {
-        const { name, value } = e.target
-
-        console.log('Typing:', {
-            field: name,
-            value: value,
-        })
-        setPoiFormData(prev => ({
-            ...prev,
-            [name]: value,
-        }))
-    }
-
-    const handlePoiSubmit = async (e) => {
-        e.preventDefault()
-
-        try {
-            await createPoiForTrail(trailId, {
-                name: poiFormData.name,
-                category_type: poiFormData.category_type,
-                city_town: poiFormData.city_town,
-                description: poiFormData.description,
-                latitude: newPoiLocation.lat,
-                longitude: newPoiLocation.lng,
-            })
-
-            // Reset form state
-            setPoiFormData({ name: '', description: '' })
-            setNewPoiLocation(null)
-
-            // Refresh trail data so POI appears on map
-            const { data } = await trailsShow(trailId)
-            console.log('NEW POI LOCATION IN SHOW:', newPoiLocation)
-            setTrail(data)
-
-        } catch (err) {
-            console.error('Failed to create POI:')
-            console.error('STATUS:', err.response?.status)
-            console.error('DATA:', err.response?.data)
-            console.error('Failed to create POI:', err.response?.data || err)
-        }
-    }
-
-
 
     useEffect(() => {
         const getTrail = async () => {
@@ -156,10 +107,10 @@ const TrailsShow = () => {
             <div className="trail-main-layout">
                 <section className="trail-box trail-details-box">
 
-    
+
                     <div className="trail-details-header">
 
-              
+
                         <div className="trail-info-column">
                             <ul className="trail-meta">
                                 <li>
@@ -204,7 +155,7 @@ const TrailsShow = () => {
 
                             </ul>
 
-                      
+
                             <ul className="trail-metrics-list">
                                 {trail.distance_km !== null && (
                                     <li>
@@ -266,41 +217,12 @@ const TrailsShow = () => {
                 <aside className="trail-sidebar">
 
                     <section className="trail-box trail-poi-box">
-                        <TrailPOIs trailId={trailId} />
+                        <TrailPOIs
+                            trailId={trailId}
+                            newPoiLocation={newPoiLocation}
+                            setNewPoiLocation={setNewPoiLocation}
+                        />
 
-                        {newPoiLocation && (
-                            <section className="poi-form">
-                                <h3>Add a Point of Interest</h3>
-
-                                <p>
-                                    Location: {newPoiLocation.lat.toFixed(5)},{" "}
-                                    {newPoiLocation.lng.toFixed(5)}
-                                </p>
-
-                                <form onSubmit={handlePoiSubmit}>
-                                    <div className="form-control">
-                                        <label>Name</label>
-                                        <input
-                                            name="name"
-                                            value={poiFormData.name}
-                                            onChange={handlePoiChange}
-                                        />
-                                    </div>
-
-                                    <div className="form-control">
-                                        <label>Description</label>
-                                        <textarea
-                                            name="description"
-                                            rows="3"
-                                            value={poiFormData.description}
-                                            onChange={handlePoiChange}
-                                        />
-                                    </div>
-
-                                    <button type="submit">Save POI</button>
-                                </form>
-                            </section>
-                        )}
                     </section>
 
                     {trail.latitude && trail.longitude && (
