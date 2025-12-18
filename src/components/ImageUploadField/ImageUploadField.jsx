@@ -18,12 +18,33 @@ export default function ImageUploadField({ labelText = 'Upload an Image', fieldN
 
     }
 
+    const latestImage =
+        Array.isArray(imageURL) && imageURL.length > 0
+            ? imageURL[imageURL.length - 1]
+            : null
+
+
+
     return (
-        <>
-        {imageURL && <img className="uploaded-image" src={imageURL} />}
+        <div className="image-upload-field">
+            {latestImage && (
+                <div className="image-preview-wrapper">
+                    <img
+                        className="uploaded-image"
+                        src={latestImage}
+                        alt=""
+                    />
+                </div>
+            )}
+
             <label htmlFor={fieldName}>{labelText}</label>
-            < input type="file" name={fieldName} id={fieldName} onChange={handleFieldUpload} />
-        </>
+            <input
+                type="file"
+                name={fieldName}
+                id={fieldName}
+                onChange={handleFieldUpload}
+                accept="image/*"
+            />
+        </div>
     )
 }
-

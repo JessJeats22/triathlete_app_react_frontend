@@ -97,6 +97,7 @@ const TrailsCreate = () => {
               placeholder="Trail name"
               required
             />
+            {renderError('name')}
           </div>
 
           <div className="form-control">
@@ -112,6 +113,7 @@ const TrailsCreate = () => {
               <option value="bike">Bike</option>
               <option value="run">Run</option>
             </select>
+            {renderError('trail_type')}
           </div>
         </section>
 
@@ -156,6 +158,7 @@ const TrailsCreate = () => {
             setGpxUrl={setGpxUrl}
             gpxUrl={formData.gpx_url}
           />
+          {renderError('gpx_url')}
         </section>
 
         <section className="form-section">
@@ -169,6 +172,7 @@ const TrailsCreate = () => {
               onChange={handleChange}
             />
           </div>
+          {renderError('description')}
         </section>
 
 
