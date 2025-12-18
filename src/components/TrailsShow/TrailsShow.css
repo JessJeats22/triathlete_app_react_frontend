@@ -253,3 +253,16 @@
   flex-direction: column;
   gap: 1.5rem;
 }
+
+/* === Weather card === */
+
+.trail-weather-box {
+  background: linear-gradient(180deg, #f6fbfa 0%, #ffffff 100%);
+  border: 1px solid rgba(31, 111, 92, 0.08);
+}
+
+.trail-weather-box .box-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

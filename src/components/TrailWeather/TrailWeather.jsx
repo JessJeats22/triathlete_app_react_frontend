@@ -28,7 +28,7 @@ const TrailWeather = ({ trailId }) => {
 
   return (
     <div className="trail-weather-card">
-      <h3 className="weather-title">Weather</h3>
+      <h3 className="weather-title">☀️ Weather ☀️ </h3>
 
       <ul className="weather-current">
         <li>
@@ -40,7 +40,7 @@ const TrailWeather = ({ trailId }) => {
           <span className="value">{Math.round(weather.feels_like)}°C</span>
         </li>
         <li>
-          <span className="label">Wind</span>
+          <span className="label">Wind 💨</span>
           <span className="value">{weather.wind} m/s</span>
         </li>
       </ul>

@@ -53,3 +53,19 @@ export const deleteTrailImage = (trailId, imageUrl) => {
     },
   })
 }
+
+export const favouriteTrail = (trailId) => {
+  return api.post(`${trailId}/favourite/`, null, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+}
+
+export const unfavouriteTrail = (trailId) => {
+  return api.delete(`${trailId}/favourite/`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+}
