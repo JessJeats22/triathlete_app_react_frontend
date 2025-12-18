@@ -56,14 +56,32 @@ const Profile = () => {
                                         }
                                     }}
                                 >
-                                    <h3>{trail.name}</h3>
+                                    <div className="trail-card-image">
+                                        {Array.isArray(trail.images) && trail.images.length > 0 ? (
+                                            <img
+                                                src={trail.images[0]}
+                                                alt={trail.name}
+                                            />
+                                        ) : (
+                                            <div className="trail-card-placeholder">
+                                                No image
+                                            </div>
+                                        )}
+                                    </div>
+
+
+
+
+                                    <div className="trail-card-content">
+                                        <h3>{trail.name}</h3>
+                                    </div>
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <p className="empty-state">You haven’t created any trails yet.</p>
                     )}
-                </section>
+                </section >
 
                 <section className="profile-section">
                     <h2>Favourited Trails</h2>
@@ -71,8 +89,34 @@ const Profile = () => {
                     {profile.favourited_trails.length ? (
                         <div className="trails-grid">
                             {profile.favourited_trails.map(trail => (
-                                <div key={trail.id} className="trail-card">
-                                    <h3>{trail.name}</h3>
+                                <div
+                                    key={trail.id}
+                                    className="trail-card"
+                                    onClick={() => navigate(`/trails/${trail.id}`)}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            navigate(`/trails/${trail.id}`)
+                                        }
+                                    }}
+                                >
+                                    <div className="trail-card-image">
+                                        {Array.isArray(trail.images) && trail.images.length > 0 ? (
+                                            <img
+                                                src={trail.images[0]}
+                                                alt={trail.name}
+                                            />
+                                        ) : (
+                                            <div className="trail-card-placeholder">
+                                                No image
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="trail-card-content">
+                                        <h3>{trail.name}</h3>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -81,7 +125,8 @@ const Profile = () => {
                     )}
                 </section>
 
-            </div>
+
+            </div >
         </>
 
     )
