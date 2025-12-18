@@ -2,6 +2,8 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-
 import { useEffect, useState } from 'react'
 import { gpx as gpxToGeoJSON } from '@tmcw/togeojson'
 import { useMapEvents } from 'react-leaflet'
+import L from 'leaflet'
+
 
 function MapClickHandler({ onMapClick }) {
     useMapEvents({
@@ -32,7 +34,17 @@ function FitBounds({ route }) {
 const TrailMap = ({ latitude, longitude, gpxUrl, pois, onMapClick = null }) => {
 
     const [route, setRoute] = useState([])
-    
+
+    const poiIcon = L.divIcon({
+        className: 'poi-marker',
+        html: '📍',
+        iconSize: [44, 44],
+        iconAnchor: [22, 44],   
+    })
+
+
+
+
 
 
     useEffect(() => {
@@ -110,14 +122,15 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois, onMapClick = null }) => {
                 <Marker
                     key={poi.id}
                     position={[poi.latitude, poi.longitude]}
+                    icon={poiIcon}
                 >
                     <Popup>
                         <strong>{poi.name}</strong>
                         {poi.description && <p>{poi.description}</p>}
                     </Popup>
                 </Marker>
-
             ))}
+
 
 
 
