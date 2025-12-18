@@ -9,6 +9,8 @@ import TrailPOIs from '../TrailPOIs/TrailPOIs'
 import TrailMap from '../TrailMap/TrailMap'
 import { createPoiForTrail } from '../../services/pois'
 import { TRAIL_TYPE_DISPLAY } from '../../utils/trailTypeDisplay'
+import { deleteTrailImage } from '../../services/trails'
+
 
 
 
@@ -30,6 +32,20 @@ const TrailsShow = () => {
         name: '',
         description: '',
     })
+
+    const handleDeleteImage = async (imageUrl) => {
+        try {
+            await deleteTrailImage(trailId, imageUrl)
+
+            // Update UI without refetching
+            setTrail(prev => ({
+                ...prev,
+                images: prev.images.filter(img => img !== imageUrl),
+            }))
+        } catch (error) {
+            console.error("Failed to delete image", error)
+        }
+    }
 
 
     const handlePoiChange = (e) => {
@@ -138,34 +154,43 @@ const TrailsShow = () => {
                             </li>
                         </ul>
 
-                        {trail.images?.length > 0 && (
-                            <img
-                                src={trail.images[0]}
-                                alt={trail.name}
-                                className="trail-image"
-                            />
-                        )}
-                    </div>
+                        <div className="trail-images">
+                            {trail.images.map((image) => (
+                                <div key={image} className="trail-image-thumb">
+                                    <img src={image} alt="Trail" />
 
-                    {trail.description && (
-                        <div className="trail-description">
-                            <p>{trail.description}</p>
+                                    {user?.id === trail.created_by.id && (
+                                        <button
+                                            className="delete-image-btn"
+                                            onClick={() => handleDeleteImage(image)}
+                                        >
+                                            🗑
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
                         </div>
-                    )}
 
-                    <div className="trail-actions">
-                        {user && user.id === trail.created_by.id && (
-                            <>
-                                <Link to={`/trails/${trailId}/edit`} className="btn btn-primary">
-                                    Edit Trail
-                                </Link>
-                                <TrailsDelete trailId={trailId} />
-                            </>
+
+                        {trail.description && (
+                            <div className="trail-description">
+                                <p>{trail.description}</p>
+                            </div>
                         )}
-                        <Link to="/trails" className="btn btn-secondary">
-                            Back to Trails
-                        </Link>
-                    </div>
+
+                        <div className="trail-actions">
+                            {user && user.id === trail.created_by.id && (
+                                <>
+                                    <Link to={`/trails/${trailId}/edit`} className="btn btn-primary">
+                                        Edit Trail
+                                    </Link>
+                                    <TrailsDelete trailId={trailId} />
+                                </>
+                            )}
+                            <Link to="/trails" className="btn btn-secondary">
+                                Back to Trails
+                            </Link>
+                        </div>
                 </section>
 
 
