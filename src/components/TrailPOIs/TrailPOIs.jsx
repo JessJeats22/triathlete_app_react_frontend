@@ -120,9 +120,7 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
                   </div>
 
                   <div className="poi-footer">
-                    <span className="poi-owner">
-                      Added by {poi.created_by.username}
-                    </span>
+
 
                     {user && user.id === poi.created_by && (
                       <button
@@ -134,6 +132,7 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
                         🗑 Delete
                       </button>
                     )}
+
                   </div>
                 </li>
               ))}
