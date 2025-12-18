@@ -9,76 +9,82 @@ import GpxUploadField from '../GpxUploadField/GpxUploadField'
 
 
 const TrailsCreate = () => {
-    const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
 
 
-    const [errorData, setErrorData] = useState({})
-    const [formData, setFormData] = useState({
-        name: '',
-        trail_type: '',
-        country: '',
-        city_town: '',
-        description: '',
-        images: [],
-        gpx_url: '',
-    })
+  const [errorData, setErrorData] = useState({})
+  const [formData, setFormData] = useState({
+    name: '',
+    trail_type: '',
+    country: '',
+    city_town: '',
+    description: '',
+    images: [],
+    gpx_url: '',
+  })
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    const countryOptions = countries
-        .map(c => c.name.common)
-        .sort((a, b) => a.localeCompare(b))
+  const countryOptions = countries
+    .map(c => c.name.common)
+    .sort((a, b) => a.localeCompare(b))
 
 
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormData({ ...formData, [name]: value })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
+
+  // IMAGE UPLOADER HANDLER
+  const setTrailImage = (imageURL) => {
+    setFormData(prev => ({
+      ...prev,
+      images: [...prev.images, imageURL],
+    }));
+  };
+
+  const setGpxUrl = (url) => {
+    setFormData(prev => ({
+      ...prev,
+      gpx_url: url,
+    }))
+  }
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const { data } = await trailsCreate(formData)
+      navigate(`/trails/${data.id}`)
+    } catch (error) {
+      console.log('STATUS:', error.response?.status)
+      console.log('DATA:', error.response?.data)
+      if (error.response?.status === 500) {
+        return setErrorData({ message: 'Something went wrong. Please try again.' })
+      }
+      setErrorData(error.response?.data || {})
     }
+  }
 
-    // IMAGE UPLOADER HANDLER
-    const setTrailImage = (imageURL) => {
-        setFormData(prev => ({
-            ...prev,
-            images: [...prev.images, imageURL],
-        }));
-    };
+  if (!user) {
+    return <Navigate to="/sign-in" />
+  }
 
-    const setGpxUrl = (url) => {
-        setFormData(prev => ({
-            ...prev,
-            gpx_url: url,
-        }))
-    }
+  const renderError = (field) => {
+    if (!errorData[field]) return null
+    return <p className="form-error">{errorData[field]}</p>
+  }
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const { data } = await trailsCreate(formData)
-            navigate(`/trails/${data.id}`)
-        } catch (error) {
-            console.log('STATUS:', error.response?.status)
-            console.log('DATA:', error.response?.data)
-            if (error.response?.status === 500) {
-                return setErrorData({ message: 'Something went wrong. Please try again.' })
-            }
-            setErrorData(error.response?.data || {})
-        }
-    }
-
-    if (!user) {
-        return <Navigate to="/sign-in" />
-    }
-
-   return (
+  return (
     <div className="trail-create-container">
       <h1 className="trail-create-title">Create a New Trail</h1>
 
       <form onSubmit={handleSubmit} className="trail-create-card">
 
-    
+
         <section className="form-section">
 
 
@@ -109,7 +115,7 @@ const TrailsCreate = () => {
           </div>
         </section>
 
-     
+
         <section className="form-section">
 
 
@@ -165,7 +171,7 @@ const TrailsCreate = () => {
           </div>
         </section>
 
- 
+
         <section className="form-section">
 
           <ImageUploadField
