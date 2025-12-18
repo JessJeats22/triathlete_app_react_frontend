@@ -8,6 +8,7 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
+
       <section className="hero">
         <h1 className="hero-title">
           🌍 TriTrails
@@ -17,6 +18,7 @@ const HomePage = () => {
           Train anywhere. Explore everywhere. 🏊‍♀️🚴‍♂️🏃‍♀️
         </p>
       </section>
+      
 
       <section className="home-content">
         <p>
