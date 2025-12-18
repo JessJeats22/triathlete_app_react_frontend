@@ -156,10 +156,10 @@ const TrailsShow = () => {
             <div className="trail-main-layout">
                 <section className="trail-box trail-details-box">
 
-                    {/* TOP ROW: meta (left) + images (right) */}
+    
                     <div className="trail-details-header">
 
-                        {/* LEFT: META + METRICS */}
+              
                         <div className="trail-info-column">
                             <ul className="trail-meta">
                                 <li>
@@ -185,23 +185,26 @@ const TrailsShow = () => {
 
                                 {user && (
                                     <li className="trail-favourite-row">
-                                        <span className="label">Favourite</span>
+                                        <span className="label">
+                                            {trail.is_favourited ? 'Unfavourite' : 'Favourite'}
+                                        </span>
                                         <button
                                             className={`favourite-btn ${trail.is_favourited ? 'active' : ''}`}
                                             onClick={handleToggleFavourite}
                                             aria-label="Toggle favourite"
                                             title={trail.is_favourited ? 'Remove from favourites' : 'Add to favourites'}
                                         >
-                                            {trail.is_favourited ? '❤️ ' : '🤍 '}
+                                            {trail.is_favourited ? '❤️' : '🤍'}
                                         </button>
                                     </li>
+
                                 )}
 
 
 
                             </ul>
 
-                            {/* METRICS UNDER META */}
+                      
                             <ul className="trail-metrics-list">
                                 {trail.distance_km !== null && (
                                     <li>
