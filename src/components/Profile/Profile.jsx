@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getMyProfile } from '../../services/profile'
+import { getMyProfile } from '../../services/auth'
 import LoadingIcon from '../../components/LoadingIcon/LoadingIcon'
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
 

@@ -10,7 +10,7 @@ import TrailsUpdate from './components/TrailsUpdate/TrailsUpdate';
 import TrailsShow from './components/TrailsShow/TrailsShow'; 
 import HomePage from './components/HomePage/HomePage'
 import GpxTest from './pages/GpxTest'
-import Profile from './pages/Profile/Profile'
+import Profile from './components/Profile/Profile'
 
 
 
@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/trails/:trailId/edit" element={<TrailsUpdate />} />
           <Route path="/trails/:trailId" element={<TrailsShow />} />
           <Route path="/gpx-test" element={<GpxTest />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/me" element={<Profile />} />
 
 
         </Routes>

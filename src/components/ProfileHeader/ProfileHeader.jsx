@@ -1,4 +1,7 @@
 const ProfileHeader = ({ user }) => {
+  
+  
+  
   return (
     <header className="profile-header">
       <img
