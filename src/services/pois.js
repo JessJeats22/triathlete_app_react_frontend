@@ -25,3 +25,11 @@ export const createPoiForTrail = (trailId, poiData) => {
     }
   )
 }
+
+export const deletePoi = (poiId) => {
+  return api.delete(`${poiId}/`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+}

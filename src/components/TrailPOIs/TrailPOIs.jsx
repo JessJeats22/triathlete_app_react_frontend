@@ -3,6 +3,8 @@ import { useEffect, useState, useContext } from 'react'
 import { poisForTrail, createPoiForTrail } from '../../services/pois'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import { UserContext } from '../../contexts/UserContext'
+import { deletePoi } from '../../services/pois'
+
 
 
 const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
@@ -18,35 +20,47 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
   })
 
   const handlePoiChange = (e) => {
-  const { name, value } = e.target
-  setPoiFormData(prev => ({
-    ...prev,
-    [name]: value,
-  }))
-}
-
-const handlePoiSubmit = async (e) => {
-  e.preventDefault()
-
-  if (!newPoiLocation) return
-
-  try {
-    const { data } = await createPoiForTrail(trailId, {
-      name: poiFormData.name,
-      description: poiFormData.description,
-      latitude: newPoiLocation.lat,
-      longitude: newPoiLocation.lng,
-    })
-
-    // Optimistically update POI list
-    setPois(prev => [...prev, data])
-
-    setPoiFormData({ name: '', description: '' })
-    setNewPoiLocation(null)
-  } catch (err) {
-    console.error('Failed to create POI', err)
+    const { name, value } = e.target
+    setPoiFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }))
   }
-}
+
+  const handlePoiSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!newPoiLocation) return
+
+    try {
+      const { data } = await createPoiForTrail(trailId, {
+        name: poiFormData.name,
+        description: poiFormData.description,
+        latitude: newPoiLocation.lat,
+        longitude: newPoiLocation.lng,
+      })
+
+      // Optimistically update POI list
+      setPois(prev => [...prev, data])
+
+      setPoiFormData({ name: '', description: '' })
+      setNewPoiLocation(null)
+    } catch (err) {
+      console.error('Failed to create POI', err)
+    }
+  }
+
+  const handleDeletePoi = async (poiId) => {
+    try {
+      await deletePoi(poiId)
+
+      // Optimistically remove from UI
+      setPois(prev => prev.filter(poi => poi.id !== poiId))
+    } catch (err) {
+      console.error('Failed to delete POI', err)
+    }
+  }
+
 
 
   useEffect(() => {
@@ -85,6 +99,18 @@ const handlePoiSubmit = async (e) => {
             <li key={poi.id} className="poi-card">
               <h3>{poi.name}</h3>
 
+              {user && user.id === poi.created_by && (
+                <button
+                  className="poi-delete-btn"
+                  onClick={() => handleDeletePoi(poi.id)}
+                  title="Delete POI"
+                  aria-label="Delete POI"
+                >
+                  🗑
+                </button>
+              )}
+
+
               {poi.category && (
                 <p className="poi-category">
                   {poi.category_type}
@@ -104,38 +130,38 @@ const handlePoiSubmit = async (e) => {
       )}
 
       {user && newPoiLocation && (
-  <section className="poi-form">
-    <h3>Add a Point of Interest</h3>
+        <section className="poi-form">
+          <h3>Add a Point of Interest</h3>
 
-    <p>
-      Location: {newPoiLocation.lat.toFixed(5)},{" "}
-      {newPoiLocation.lng.toFixed(5)}
-    </p>
+          <p>
+            Location: {newPoiLocation.lat.toFixed(5)},{" "}
+            {newPoiLocation.lng.toFixed(5)}
+          </p>
 
-    <form onSubmit={handlePoiSubmit}>
-      <div className="form-control">
-        <label>Name</label>
-        <input
-          name="name"
-          value={poiFormData.name}
-          onChange={handlePoiChange}
-        />
-      </div>
+          <form onSubmit={handlePoiSubmit}>
+            <div className="form-control">
+              <label>Name</label>
+              <input
+                name="name"
+                value={poiFormData.name}
+                onChange={handlePoiChange}
+              />
+            </div>
 
-      <div className="form-control">
-        <label>Description</label>
-        <textarea
-          name="description"
-          rows="3"
-          value={poiFormData.description}
-          onChange={handlePoiChange}
-        />
-      </div>
+            <div className="form-control">
+              <label>Description</label>
+              <textarea
+                name="description"
+                rows="3"
+                value={poiFormData.description}
+                onChange={handlePoiChange}
+              />
+            </div>
 
-      <button type="submit">Save POI</button>
-    </form>
-  </section>
-)}
+            <button type="submit">Save POI</button>
+          </form>
+        </section>
+      )}
 
     </section>
   )
