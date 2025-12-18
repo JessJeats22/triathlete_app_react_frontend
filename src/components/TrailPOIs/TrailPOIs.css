@@ -16,3 +16,49 @@
   opacity: 1;
   color: #b00020;
 }
+
+.poi-card {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.poi-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.poi-description {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.poi-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.poi-owner {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.poi-delete-btn {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0.7;
+  color: #b00020;
+}
+
+.poi-delete-btn:hover {
+  opacity: 1;
+}
+

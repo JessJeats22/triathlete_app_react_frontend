@@ -100,79 +100,80 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
         </span>
       </button>
 
+      {isExpanded && (
+        <>
 
-      {pois.length === 0 ? (
-        <p className="empty-message">
-          No points of interest added yet.
-        </p>
-      ) : (
-        <ul className="poi-list">
-          {pois.map(poi => (
-            <li key={poi.id} className="poi-card">
-              <h3>{poi.name}</h3>
+          {pois.length === 0 ? (
+            <p className="empty-message">
+              No points of interest added yet.
+            </p>
+          ) : (
+            <ul className="poi-list">
+              {pois.map(poi => (
+                <li key={poi.id} className="poi-card">
+                  <div className="poi-content">
+                    <h3 className="poi-title">{poi.name}</h3>
 
-              {user && user.id === poi.created_by && (
-                <button
-                  className="poi-delete-btn"
-                  onClick={() => handleDeletePoi(poi.id)}
-                  title="Delete POI"
-                  aria-label="Delete POI"
-                >
-                  🗑
-                </button>
-              )}
+                    {poi.description && (
+                      <p className="poi-description">{poi.description}</p>
+                    )}
+                  </div>
 
+                  <div className="poi-footer">
+                    <span className="poi-owner">
+                      Added by {poi.created_by.username}
+                    </span>
 
-              {poi.category && (
-                <p className="poi-category">
-                  {poi.category_type}
-                </p>
-              )}
+                    {user && user.id === poi.created_by && (
+                      <button
+                        className="poi-delete-btn"
+                        onClick={() => handleDeletePoi(poi.id)}
+                        title="Delete POI"
+                        aria-label="Delete POI"
+                      >
+                        🗑 Delete
+                      </button>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
 
-              {poi.description && (
-                <p>{poi.description}</p>
-              )}
+          {user && newPoiLocation && (
+            <section className="poi-form">
+              <h3>Add a Point of Interest</h3>
 
-              <p className="poi-owner">
-                Added by {poi.created_by.username}
+              <p>
+                Location: {newPoiLocation.lat.toFixed(5)},{" "}
+                {newPoiLocation.lng.toFixed(5)}
               </p>
-            </li>
-          ))}
-        </ul>
-      )}
 
-      {user && newPoiLocation && (
-        <section className="poi-form">
-          <h3>Add a Point of Interest</h3>
+              <form onSubmit={handlePoiSubmit}>
+                <div className="form-control">
+                  <label>Name</label>
+                  <input
+                    name="name"
+                    value={poiFormData.name}
+                    onChange={handlePoiChange}
+                  />
+                </div>
 
-          <p>
-            Location: {newPoiLocation.lat.toFixed(5)},{" "}
-            {newPoiLocation.lng.toFixed(5)}
-          </p>
+                <div className="form-control">
+                  <label>Description</label>
+                  <textarea
+                    name="description"
+                    rows="3"
+                    value={poiFormData.description}
+                    onChange={handlePoiChange}
+                  />
+                </div>
 
-          <form onSubmit={handlePoiSubmit}>
-            <div className="form-control">
-              <label>Name</label>
-              <input
-                name="name"
-                value={poiFormData.name}
-                onChange={handlePoiChange}
-              />
-            </div>
-
-            <div className="form-control">
-              <label>Description</label>
-              <textarea
-                name="description"
-                rows="3"
-                value={poiFormData.description}
-                onChange={handlePoiChange}
-              />
-            </div>
-
-            <button type="submit">Save POI</button>
-          </form>
-        </section>
+                <button type="submit">Save POI</button>
+              </form>
+            </section>
+          )}
+        </>
       )}
 
     </section>
