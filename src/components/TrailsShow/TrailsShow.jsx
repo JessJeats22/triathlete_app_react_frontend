@@ -11,6 +11,8 @@ import { createPoiForTrail } from '../../services/pois'
 import { TRAIL_TYPE_DISPLAY } from '../../utils/trailTypeDisplay'
 import { deleteTrailImage } from '../../services/trails'
 import TrailWeather from '../TrailWeather/TrailWeather'
+import { favouriteTrail, unfavouriteTrail } from '../../services/trails'
+
 
 
 
@@ -44,6 +46,32 @@ const TrailsShow = () => {
             }))
         } catch (error) {
             console.error("Failed to delete image", error)
+        }
+    }
+
+    const handleToggleFavourite = async () => {
+        if (!user) return
+
+        const wasFavourited = trail.is_favourited
+
+        // Optimistic update
+        setTrail(prev => ({
+            ...prev,
+            is_favourited: !wasFavourited,
+        }))
+
+        try {
+            if (wasFavourited) {
+                await unfavouriteTrail(trailId)
+            } else {
+                await favouriteTrail(trailId)
+            }
+        } catch (err) {
+            // Roll back on error
+            setTrail(prev => ({
+                ...prev,
+                is_favourited: wasFavourited,
+            }))
         }
     }
 
@@ -124,6 +152,7 @@ const TrailsShow = () => {
         <div className="trail-details-container">
             <h1 className="trail-title">{trail.name}</h1>
 
+
             <div className="trail-main-layout">
                 <section className="trail-box trail-details-box">
 
@@ -152,6 +181,24 @@ const TrailsShow = () => {
                                     <span className="label">City / Town</span>
                                     <span className="value">{trail.city_town}</span>
                                 </li>
+
+
+                                {user && (
+                                    <li className="trail-favourite-row">
+                                        <span className="label">Favourite</span>
+                                        <button
+                                            className={`favourite-btn ${trail.is_favourited ? 'active' : ''}`}
+                                            onClick={handleToggleFavourite}
+                                            aria-label="Toggle favourite"
+                                            title={trail.is_favourited ? 'Remove from favourites' : 'Add to favourites'}
+                                        >
+                                            {trail.is_favourited ? '❤️ ' : '🤍 '}
+                                        </button>
+                                    </li>
+                                )}
+
+
+
                             </ul>
 
                             {/* METRICS UNDER META */}
@@ -253,9 +300,11 @@ const TrailsShow = () => {
                         )}
                     </section>
 
-                    <section className="trail-box trail-weather-box">
-                        <TrailWeather trailId={trailId} />
-                    </section>
+                    {trail.latitude && trail.longitude && (
+                        <section className="trail-box trail-weather-box">
+                            <TrailWeather trailId={trailId} />
+                        </section>
+                    )}
 
                 </aside>
 

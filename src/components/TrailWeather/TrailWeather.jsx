@@ -25,6 +25,7 @@ const TrailWeather = ({ trailId }) => {
   if (isLoading) return <p>Loading weather…</p>
   if (error) return <p>{error}</p>
   if (!weather) return null
+  
 
   return (
     <div className="trail-weather-card">

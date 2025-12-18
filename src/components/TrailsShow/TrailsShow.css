@@ -266,3 +266,29 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+
+.trail-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.favourite-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.favourite-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+.favourite-btn.active {
+  filter: drop-shadow(0 0 4px rgba(220, 0, 0, 0.35));
+}
