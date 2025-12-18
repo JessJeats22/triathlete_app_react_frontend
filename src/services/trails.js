@@ -42,3 +42,14 @@ export const trailsDelete = (trailId) => {
     },
   })
 }
+
+export const deleteTrailImage = (trailId, imageUrl) => {
+  return api.delete(`${trailId}/images/`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+    data: {
+      image_url: imageUrl,
+    },
+  })
+}
