@@ -10,9 +10,7 @@ import TrailMap from '../TrailMap/TrailMap'
 import { createPoiForTrail } from '../../services/pois'
 import { TRAIL_TYPE_DISPLAY } from '../../utils/trailTypeDisplay'
 import { deleteTrailImage } from '../../services/trails'
-
-
-
+import TrailWeather from '../TrailWeather/TrailWeather'
 
 
 
@@ -215,44 +213,53 @@ const TrailsShow = () => {
                     </div>
                 </section>
 
-                {/* POIs SIDEBAR */}
-                <aside className="trail-box trail-poi-box">
-                    <TrailPOIs trailId={trailId} />
+                <aside className="trail-sidebar">
 
-                    {newPoiLocation && (
-                        <section className="poi-form">
-                            <h3>Add a Point of Interest</h3>
+                    <section className="trail-box trail-poi-box">
+                        <TrailPOIs trailId={trailId} />
 
-                            <p>
-                                Location: {newPoiLocation.lat.toFixed(5)},{' '}
-                                {newPoiLocation.lng.toFixed(5)}
-                            </p>
+                        {newPoiLocation && (
+                            <section className="poi-form">
+                                <h3>Add a Point of Interest</h3>
 
-                            <form onSubmit={handlePoiSubmit}>
-                                <div className="form-control">
-                                    <label>Name</label>
-                                    <input
-                                        name="name"
-                                        value={poiFormData.name}
-                                        onChange={handlePoiChange}
-                                    />
-                                </div>
+                                <p>
+                                    Location: {newPoiLocation.lat.toFixed(5)},{" "}
+                                    {newPoiLocation.lng.toFixed(5)}
+                                </p>
 
-                                <div className="form-control">
-                                    <label>Description</label>
-                                    <textarea
-                                        name="description"
-                                        rows="3"
-                                        value={poiFormData.description}
-                                        onChange={handlePoiChange}
-                                    />
-                                </div>
+                                <form onSubmit={handlePoiSubmit}>
+                                    <div className="form-control">
+                                        <label>Name</label>
+                                        <input
+                                            name="name"
+                                            value={poiFormData.name}
+                                            onChange={handlePoiChange}
+                                        />
+                                    </div>
 
-                                <button type="submit">Save POI</button>
-                            </form>
-                        </section>
-                    )}
+                                    <div className="form-control">
+                                        <label>Description</label>
+                                        <textarea
+                                            name="description"
+                                            rows="3"
+                                            value={poiFormData.description}
+                                            onChange={handlePoiChange}
+                                        />
+                                    </div>
+
+                                    <button type="submit">Save POI</button>
+                                </form>
+                            </section>
+                        )}
+                    </section>
+
+                    <section className="trail-box trail-weather-box">
+                        <TrailWeather trailId={trailId} />
+                    </section>
+
                 </aside>
+
+
             </div>
 
             {/* MAP */}
