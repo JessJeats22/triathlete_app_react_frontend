@@ -44,9 +44,13 @@
   margin: 0;
 }
 
-/* Empty states */
+
 .empty-state {
   color: #777;
   font-style: italic;
   margin-top: 0.5rem;
+}
+
+.trail-card {
+  cursor: pointer;
 }

@@ -3,6 +3,7 @@ import { getMyProfile } from '../../services/auth'
 import LoadingIcon from '../../components/LoadingIcon/LoadingIcon'
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
 import './Profile.css'
+import { useNavigate } from 'react-router'
 
 
 
@@ -10,6 +11,8 @@ const Profile = () => {
     const [profile, setProfile] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -31,44 +34,55 @@ const Profile = () => {
 
     return (
         <>
-    <ProfileHeader user={profile} />
+            <ProfileHeader user={profile} />
 
-    <div className="profile-page">
+            <div className="profile-page">
 
-        <section className="profile-section">
-            <h2>My Trails</h2>
+                <section className="profile-section">
+                    <h2>My Trails</h2>
 
-            {profile.created_trails.length ? (
-                <div className="trails-grid">
-                    {profile.created_trails.map(trail => (
-                        <div key={trail.id} className="trail-card">
-                            <h3>{trail.name}</h3>
+                    {profile.created_trails.length ? (
+                        <div className="trails-grid">
+                            {profile.created_trails.map(trail => (
+                                <div
+                                    key={trail.id}
+                                    className="trail-card"
+                                    onClick={() => navigate(`/trails/${trail.id}`)}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            navigate(`/trails/${trail.id}`)
+                                        }
+                                    }}
+                                >
+                                    <h3>{trail.name}</h3>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            ) : (
-                <p className="empty-state">You haven’t created any trails yet.</p>
-            )}
-        </section>
+                    ) : (
+                        <p className="empty-state">You haven’t created any trails yet.</p>
+                    )}
+                </section>
 
-        <section className="profile-section">
-            <h2>Favourited Trails</h2>
+                <section className="profile-section">
+                    <h2>Favourited Trails</h2>
 
-            {profile.favourited_trails.length ? (
-                <div className="trails-grid">
-                    {profile.favourited_trails.map(trail => (
-                        <div key={trail.id} className="trail-card">
-                            <h3>{trail.name}</h3>
+                    {profile.favourited_trails.length ? (
+                        <div className="trails-grid">
+                            {profile.favourited_trails.map(trail => (
+                                <div key={trail.id} className="trail-card">
+                                    <h3>{trail.name}</h3>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            ) : (
-                <p className="empty-state">No favourites yet.</p>
-            )}
-        </section>
+                    ) : (
+                        <p className="empty-state">No favourites yet.</p>
+                    )}
+                </section>
 
-    </div>
-</>
+            </div>
+        </>
 
     )
 
