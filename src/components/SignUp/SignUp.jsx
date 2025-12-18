@@ -68,7 +68,7 @@ const SignUp = () => {
                 <div className="form-control">
                     <label hidden htmlFor="confirm_password">Re-type your password</label>
                     <input type="password" name="confirm_password" id="confirm_password" placeholder='Confirm Password' onChange={handleChange} />
-                    {errorData.confirmPassword && <p className='error-message'>{errorData.confirm_password}</p>}
+                    {errorData.confirm_password && <p className='error-message'>{errorData.confirm_password}</p>}
                 </div>
 
                 <button type="submit">Create account</button>
