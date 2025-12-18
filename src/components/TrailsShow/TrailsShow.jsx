@@ -126,52 +126,60 @@ const TrailsShow = () => {
         <div className="trail-details-container">
             <h1 className="trail-title">{trail.name}</h1>
 
-
             <div className="trail-main-layout">
-
-
                 <section className="trail-box trail-details-box">
 
-
+                    {/* TOP ROW: meta (left) + images (right) */}
                     <div className="trail-details-header">
-                        <ul className="trail-meta">
-                            <li>
-                                <span className="label">Created by</span>
-                                <span className="value">{trail.created_by.username}</span>
-                            </li>
-                            <li>
-                                <span className="label">Trail Type</span>
-                                <span className="value">
-                                    {TRAIL_TYPE_DISPLAY[trail.trail_type]?.emoji}{' '}
-                                    {TRAIL_TYPE_DISPLAY[trail.trail_type]?.label}
-                                </span>
-                            </li>
-                            <li>
-                                <span className="label">Country</span>
-                                <span className="value">{trail.country}</span>
-                            </li>
-                            <li>
-                                <span className="label">City / Town</span>
-                                <span className="value">{trail.city_town}</span>
-                            </li>
 
-                        
-                        </ul>
+                        {/* LEFT: META + METRICS */}
+                        <div className="trail-info-column">
+                            <ul className="trail-meta">
+                                <li>
+                                    <span className="label">Created by</span>
+                                    <span className="value">{trail.created_by.username}</span>
+                                </li>
+                                <li>
+                                    <span className="label">Trail Type</span>
+                                    <span className="value">
+                                        {TRAIL_TYPE_DISPLAY[trail.trail_type]?.emoji}{' '}
+                                        {TRAIL_TYPE_DISPLAY[trail.trail_type]?.label}
+                                    </span>
+                                </li>
+                                <li>
+                                    <span className="label">Country</span>
+                                    <span className="value">{trail.country}</span>
+                                </li>
+                                <li>
+                                    <span className="label">City / Town</span>
+                                    <span className="value">{trail.city_town}</span>
+                                </li>
+                            </ul>
 
-                        <div className="trail-metrics">
-                                {trail.distance_km && (
-                                    <p>📏 Distance: {trail.distance_km} km</p>
+                            {/* METRICS UNDER META */}
+                            <ul className="trail-metrics-list">
+                                {trail.distance_km !== null && (
+                                    <li>
+                                        <span className="metric-icon">📏</span>
+                                        <span className="metric-label">Distance</span>
+                                        <span className="metric-value">{trail.distance_km} km</span>
+                                    </li>
                                 )}
-                                {trail.elevation_gain && (
-                                    <p>⬆️ Elevation gain: {trail.elevation_gain} m</p>
+                                {trail.elevation_gain !== null && (
+                                    <li>
+                                        <span className="metric-icon">⬆️</span>
+                                        <span className="metric-label">Elevation gain</span>
+                                        <span className="metric-value">{trail.elevation_gain} m</span>
+                                    </li>
                                 )}
-                            </div>
+                            </ul>
+                        </div>
 
+                        {/* RIGHT: IMAGES ONLY */}
                         <div className="trail-images">
                             {images.map((image) => (
                                 <div key={image} className="trail-image-thumb">
                                     <img src={image} alt="Trail" />
-
                                     {user?.id === trail.created_by.id && (
                                         <button
                                             className="delete-image-btn"
@@ -185,7 +193,7 @@ const TrailsShow = () => {
                         </div>
                     </div>
 
-
+                    {/* DESCRIPTION — FULL WIDTH */}
                     {trail.description && (
                         <div className="trail-description">
                             <p>{trail.description}</p>
@@ -207,10 +215,8 @@ const TrailsShow = () => {
                     </div>
                 </section>
 
-
+                {/* POIs SIDEBAR */}
                 <aside className="trail-box trail-poi-box">
-
-
                     <TrailPOIs trailId={trailId} />
 
                     {newPoiLocation && (
@@ -218,7 +224,7 @@ const TrailsShow = () => {
                             <h3>Add a Point of Interest</h3>
 
                             <p>
-                                Location: {newPoiLocation.lat.toFixed(5)},{" "}
+                                Location: {newPoiLocation.lat.toFixed(5)},{' '}
                                 {newPoiLocation.lng.toFixed(5)}
                             </p>
 
@@ -247,10 +253,9 @@ const TrailsShow = () => {
                         </section>
                     )}
                 </aside>
-
             </div>
 
-
+            {/* MAP */}
             <section className="trail-box trail-map-box">
                 <h2 className="box-title">Map</h2>
 
@@ -264,6 +269,7 @@ const TrailsShow = () => {
             </section>
         </div>
     )
+
 }
 
 export default TrailsShow
