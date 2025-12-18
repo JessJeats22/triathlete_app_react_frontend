@@ -11,6 +11,8 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
   const [pois, setPois] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorData, setErrorData] = useState({})
+  const [isExpanded, setIsExpanded] = useState(false)
+
 
   const { user } = useContext(UserContext)
 
@@ -87,7 +89,17 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
 
   return (
     <section className="trail-pois">
-      <h2>📍 Points of Interest</h2>
+      <button
+        className="poi-toggle"
+        onClick={() => setIsExpanded(prev => !prev)}
+        aria-expanded={isExpanded}
+      >
+        📍 Points of Interest
+        <span className="poi-toggle-icon">
+          {isExpanded ? '▲' : '▼'}
+        </span>
+      </button>
+
 
       {pois.length === 0 ? (
         <p className="empty-message">
