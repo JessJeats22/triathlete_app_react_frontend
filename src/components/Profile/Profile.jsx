@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getMyProfile } from '../../services/auth'
 import LoadingIcon from '../../components/LoadingIcon/LoadingIcon'
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader'
+import './Profile.css'
+
 
 
 const Profile = () => {
@@ -29,15 +31,47 @@ const Profile = () => {
 
     return (
         <>
-            <div>
-                <ProfileHeader user={profile} />
-            </div>
+    <ProfileHeader user={profile} />
 
-            <div className="profile-page">
-                <h1>{profile.username}</h1>
-            </div>
-        </>
+    <div className="profile-page">
+
+        <section className="profile-section">
+            <h2>My Trails</h2>
+
+            {profile.created_trails.length ? (
+                <div className="trails-grid">
+                    {profile.created_trails.map(trail => (
+                        <div key={trail.id} className="trail-card">
+                            <h3>{trail.name}</h3>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p className="empty-state">You haven’t created any trails yet.</p>
+            )}
+        </section>
+
+        <section className="profile-section">
+            <h2>Favourited Trails</h2>
+
+            {profile.favourited_trails.length ? (
+                <div className="trails-grid">
+                    {profile.favourited_trails.map(trail => (
+                        <div key={trail.id} className="trail-card">
+                            <h3>{trail.name}</h3>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p className="empty-state">No favourites yet.</p>
+            )}
+        </section>
+
+    </div>
+</>
+
     )
+
 }
 
 export default Profile
