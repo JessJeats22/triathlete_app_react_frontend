@@ -22,10 +22,12 @@ const TrailsShow = () => {
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
 
+
     const [trail, setTrail] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [errorData, setErrorData] = useState({})
     const [newPoiLocation, setNewPoiLocation] = useState(null)
+    const images = trail?.images || []
 
 
     const [poiFormData, setPoiFormData] = useState({
@@ -152,10 +154,21 @@ const TrailsShow = () => {
                                 <span className="label">City / Town</span>
                                 <span className="value">{trail.city_town}</span>
                             </li>
+
+                        
                         </ul>
 
+                        <div className="trail-metrics">
+                                {trail.distance_km && (
+                                    <p>📏 Distance: {trail.distance_km} km</p>
+                                )}
+                                {trail.elevation_gain && (
+                                    <p>⬆️ Elevation gain: {trail.elevation_gain} m</p>
+                                )}
+                            </div>
+
                         <div className="trail-images">
-                            {trail.images.map((image) => (
+                            {images.map((image) => (
                                 <div key={image} className="trail-image-thumb">
                                     <img src={image} alt="Trail" />
 
@@ -170,27 +183,28 @@ const TrailsShow = () => {
                                 </div>
                             ))}
                         </div>
+                    </div>
 
 
-                        {trail.description && (
-                            <div className="trail-description">
-                                <p>{trail.description}</p>
-                            </div>
-                        )}
-
-                        <div className="trail-actions">
-                            {user && user.id === trail.created_by.id && (
-                                <>
-                                    <Link to={`/trails/${trailId}/edit`} className="btn btn-primary">
-                                        Edit Trail
-                                    </Link>
-                                    <TrailsDelete trailId={trailId} />
-                                </>
-                            )}
-                            <Link to="/trails" className="btn btn-secondary">
-                                Back to Trails
-                            </Link>
+                    {trail.description && (
+                        <div className="trail-description">
+                            <p>{trail.description}</p>
                         </div>
+                    )}
+
+                    <div className="trail-actions">
+                        {user && user.id === trail.created_by.id && (
+                            <>
+                                <Link to={`/trails/${trailId}/edit`} className="btn btn-primary">
+                                    Edit Trail
+                                </Link>
+                                <TrailsDelete trailId={trailId} />
+                            </>
+                        )}
+                        <Link to="/trails" className="btn btn-secondary">
+                            Back to Trails
+                        </Link>
+                    </div>
                 </section>
 
 

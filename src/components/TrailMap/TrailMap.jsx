@@ -29,10 +29,11 @@ function FitBounds({ route }) {
 }
 
 
-const TrailMap = ({ latitude, longitude, gpxUrl, pois,  onMapClick = null }) => {
+const TrailMap = ({ latitude, longitude, gpxUrl, pois, onMapClick = null }) => {
 
     const [route, setRoute] = useState([])
-   
+    
+
 
     useEffect(() => {
         if (!gpxUrl) return
@@ -65,6 +66,7 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois,  onMapClick = null }) => 
     if ((!latitude || !longitude) && route.length === 0) {
         return <p>Map location unavailable.</p>
     }
+
 
 
 
