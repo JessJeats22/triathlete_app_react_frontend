@@ -68,6 +68,18 @@ const TrailsUpdate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
+
+            const {
+                images,
+                gpx_url,
+                distance_km,
+                elevation_gain_m,
+                elevation_min_m,
+                elevation_max_m,
+                created_by,
+                is_favourited,
+                ...updateData
+            } = formData
             const { data } = await trailsUpdate(trailId, formData)
             navigate(`/trails/${data.id}`)
         } catch (error) {

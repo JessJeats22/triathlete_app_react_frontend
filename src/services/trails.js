@@ -28,7 +28,7 @@ export const trailsShow = (trailId) => {
 }
 
 export const trailsUpdate = (trailId, formData) => {
-  return api.put(`${trailId}/`, formData, {
+  return api.patch(`${trailId}/`, formData, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
