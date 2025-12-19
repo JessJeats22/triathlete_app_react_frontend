@@ -21,25 +21,9 @@ const TrailsShow = () => {
     const { trailId } = useParams()
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
-    
 
-     if (!user) {
-        return (
-            <div className="trail-details-container">
-                <p className="auth-message">
-                    Please{' '}
-                    <Link to="/sign-in" className="auth-link">
-                        sign in
-                    </Link>{' '}
-                    or{' '}
-                    <Link to="/sign-up" className="auth-link">
-                        create an account
-                    </Link>{' '}
-                    to view this trail.
-                </p>
-            </div>
-        )
-    }
+
+
 
 
     const [trail, setTrail] = useState(null)
@@ -49,17 +33,17 @@ const TrailsShow = () => {
     const images = trail?.images || []
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-const handleNextImage = () => {
-  setCurrentImageIndex(prev =>
-    (prev + 1) % images.length
-  )
-}
+    const handleNextImage = () => {
+        setCurrentImageIndex(prev =>
+            (prev + 1) % images.length
+        )
+    }
 
-const handlePrevImage = () => {
-  setCurrentImageIndex(prev =>
-    (prev - 1 + images.length) % images.length
-  )
-}
+    const handlePrevImage = () => {
+        setCurrentImageIndex(prev =>
+            (prev - 1 + images.length) % images.length
+        )
+    }
 
 
     const handleDeleteImage = async (imageUrl) => {
@@ -102,6 +86,23 @@ const handlePrevImage = () => {
         }
     }
 
+    if (!user) {
+        return (
+            <div className="trail-details-container">
+                <p className="auth-message">
+                    Please{' '}
+                    <Link to="/sign-in" className="auth-link">
+                        sign in
+                    </Link>{' '}
+                    or{' '}
+                    <Link to="/sign-up" className="auth-link">
+                        create an account
+                    </Link>{' '}
+                    to view this trail.
+                </p>
+            </div>
+        )
+    }
 
 
     useEffect(() => {
@@ -206,45 +207,45 @@ const handlePrevImage = () => {
                             </ul>
                         </div>
 
-                    
+
                         {images.length > 0 && (
-  <div className="trail-image-carousel">
+                            <div className="trail-image-carousel">
 
-    <button
-      className="carousel-btn carousel-btn--left"
-      onClick={handlePrevImage}
-      aria-label="Previous image"
-    >
-      ◀
-    </button>
+                                <button
+                                    className="carousel-btn carousel-btn--left"
+                                    onClick={handlePrevImage}
+                                    aria-label="Previous image"
+                                >
+                                    ◀
+                                </button>
 
-    <div className="carousel-image-wrapper">
-      <img
-        src={images[currentImageIndex]}
-        alt="Trail"
-        className="carousel-image"
-      />
+                                <div className="carousel-image-wrapper">
+                                    <img
+                                        src={images[currentImageIndex]}
+                                        alt="Trail"
+                                        className="carousel-image"
+                                    />
 
-      {user?.id === trail.created_by.id && (
-        <button
-          className="delete-image-btn"
-          onClick={() => handleDeleteImage(images[currentImageIndex])}
-        >
-          🗑
-        </button>
-      )}
-    </div>
+                                    {user?.id === trail.created_by.id && (
+                                        <button
+                                            className="delete-image-btn"
+                                            onClick={() => handleDeleteImage(images[currentImageIndex])}
+                                        >
+                                            🗑
+                                        </button>
+                                    )}
+                                </div>
 
-    <button
-      className="carousel-btn carousel-btn--right"
-      onClick={handleNextImage}
-      aria-label="Next image"
-    >
-      ▶
-    </button>
+                                <button
+                                    className="carousel-btn carousel-btn--right"
+                                    onClick={handleNextImage}
+                                    aria-label="Next image"
+                                >
+                                    ▶
+                                </button>
 
-  </div>
-)}
+                            </div>
+                        )}
 
                     </div>
 
@@ -293,7 +294,7 @@ const handlePrevImage = () => {
 
             </div>
 
-            {/* MAP */}
+        
             <section className="trail-box trail-map-box">
                 <h2 className="box-title">Map</h2>
 
@@ -302,7 +303,12 @@ const handlePrevImage = () => {
                     longitude={trail.longitude}
                     gpxUrl={trail.gpx_url}
                     pois={trail.points_of_interest}
-                    onMapClick={user ? setNewPoiLocation : null}
+                    onMapClick={
+                        user && user.id === trail.created_by.id
+                            ? setNewPoiLocation
+                            : null
+                    }
+
                 />
             </section>
         </div>
