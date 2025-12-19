@@ -12,9 +12,9 @@ const NavBar = () => {
 
     const navigate = useNavigate()
 
-     const handleSignOut = () => {
-        signOut();           
-        navigate('/');    
+    const handleSignOut = () => {
+        signOut();
+        navigate('/');
     };
 
 
@@ -33,7 +33,10 @@ const NavBar = () => {
                             <Link to="/trails">Explore Trails</Link>
                             <Link to="/trails/new">Build Custom Route</Link>
                             <Link to="/me">Your Profile</Link>
-                            <button onClick={handleSignOut}>Sign out</button>
+
+                            <button onClick={handleSignOut} className="navbar__signout">
+                                Sign out <span className="navbar__username">({user.username})</span>
+                            </button>
                         </>
                     ) : (
                         <>
