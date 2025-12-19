@@ -65,7 +65,7 @@ const HomePage = () => {
                 Explore Trails 🗺️
               </Link>
               <Link to="/trails/new" className="btn btn-secondary">
-                Create a Trail ➕
+                Create Custom Trail ➕
               </Link>
             </>
           )}

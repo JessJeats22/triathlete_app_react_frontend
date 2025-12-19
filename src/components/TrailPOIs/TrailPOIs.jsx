@@ -1,18 +1,14 @@
 import './TrailPOIs.css'
 import { useEffect, useState, useContext } from 'react'
-import { poisForTrail, createPoiForTrail } from '../../services/pois'
+import { poisForTrail, createPoiForTrail, deletePoi } from '../../services/pois'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import { UserContext } from '../../contexts/UserContext'
-import { deletePoi } from '../../services/pois'
-
-
 
 const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
   const [pois, setPois] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorData, setErrorData] = useState({})
   const [isExpanded, setIsExpanded] = useState(false)
-
 
   const { user } = useContext(UserContext)
 
@@ -35,18 +31,20 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
     if (!newPoiLocation) return
 
     try {
-      const { data } = await createPoiForTrail(trailId, {
+      await createPoiForTrail(trailId, {
         name: poiFormData.name,
         description: poiFormData.description,
         latitude: newPoiLocation.lat,
         longitude: newPoiLocation.lng,
       })
 
-      // Optimistically update POI list
-      setPois(prev => [...prev, data])
+      // 🔄 Re-fetch POIs so map + list stay in sync
+      const { data } = await poisForTrail(trailId)
+      setPois(data)
 
       setPoiFormData({ name: '', description: '' })
       setNewPoiLocation(null)
+
     } catch (err) {
       console.error('Failed to create POI', err)
     }
@@ -62,8 +60,6 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
       console.error('Failed to delete POI', err)
     }
   }
-
-
 
   useEffect(() => {
     const getPOIs = async () => {
@@ -102,7 +98,6 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
 
       {isExpanded && (
         <>
-
           {pois.length === 0 ? (
             <p className="empty-message">
               No points of interest added yet.
@@ -113,27 +108,19 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
                 <li key={poi.id} className="poi-card">
                   <div className="poi-content">
                     <h3 className="poi-title">{poi.name}</h3>
-
                     {poi.description && (
                       <p className="poi-description">{poi.description}</p>
                     )}
                   </div>
 
-                  <div className="poi-footer">
-
-
-                    {user && user.id === poi.created_by && (
-                      <button
-                        className="poi-delete-btn"
-                        onClick={() => handleDeletePoi(poi.id)}
-                        title="Delete POI"
-                        aria-label="Delete POI"
-                      >
-                        🗑 Delete
-                      </button>
-                    )}
-
-                  </div>
+                  {user && user.id === poi.created_by && (
+                    <button
+                      className="poi-delete-btn"
+                      onClick={() => handleDeletePoi(poi.id)}
+                    >
+                      🗑 Delete
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -144,7 +131,7 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
               <h3>Add a Point of Interest</h3>
 
               <p>
-                Location: {newPoiLocation.lat.toFixed(5)},{" "}
+                Location: {newPoiLocation.lat.toFixed(5)},{' '}
                 {newPoiLocation.lng.toFixed(5)}
               </p>
 
@@ -174,7 +161,6 @@ const TrailPOIs = ({ trailId, newPoiLocation, setNewPoiLocation }) => {
           )}
         </>
       )}
-
     </section>
   )
 }

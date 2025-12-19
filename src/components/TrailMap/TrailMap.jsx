@@ -39,8 +39,9 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois, onMapClick = null }) => {
         className: 'poi-marker',
         html: '📍',
         iconSize: [44, 44],
-        iconAnchor: [22, 44],   
+        iconAnchor: [22, 44],
     })
+
 
 
 
@@ -89,56 +90,58 @@ const TrailMap = ({ latitude, longitude, gpxUrl, pois, onMapClick = null }) => {
 
 
     return (
-        <MapContainer
-            center={center}
-            zoom={13}
-            scrollWheelZoom={false}
-            style={{ height: '400px', width: '100%', borderRadius: '16px' }}
-        >
-
-            <TileLayer
-                attribution='&copy; OpenStreetMap contributors'
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            />
-
-            {route.length > 0 && (
-                <>
-                    <Polyline positions={route} />
-                    <FitBounds route={route} />
-                </>
+        <>
+            {onMapClick && (
+                <p className="map-instruction">
+                    🗺️ Click on the map to add a Point of Interest
+                </p>
             )}
 
-            {route.length === 0 && latitude && longitude && (
-                <Marker position={[latitude, longitude]}>
-                    <Popup>Trail start</Popup>
-                </Marker>
-            )}
+            <MapContainer
+                center={center}
+                zoom={13}
+                scrollWheelZoom={false}
+                style={{ height: '400px', width: '100%', borderRadius: '16px' }}
+            >
 
+                <TileLayer
+                    attribution='&copy; OpenStreetMap contributors'
+                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                />
 
+                {route.length > 0 && (
+                    <>
+                        <Polyline positions={route} />
+                        <FitBounds route={route} />
+                    </>
+                )}
 
+                {route.length === 0 && latitude && longitude && (
+                    <Marker position={[latitude, longitude]}>
+                        <Popup>Trail start</Popup>
+                    </Marker>
+                )}
 
+                {pois.map(poi => (
+                    <Marker
+                        key={poi.id}
+                        position={[poi.latitude, poi.longitude]}
+                        icon={poiIcon}
+                    >
+                        <Popup>
+                            <strong>{poi.name}</strong>
+                            {poi.description && <p>{poi.description}</p>}
+                        </Popup>
+                    </Marker>
+                ))}
 
-            {pois.map(poi => (
-                <Marker
-                    key={poi.id}
-                    position={[poi.latitude, poi.longitude]}
-                    icon={poiIcon}
-                >
-                    <Popup>
-                        <strong>{poi.name}</strong>
-                        {poi.description && <p>{poi.description}</p>}
-                    </Popup>
-                </Marker>
-            ))}
+                <MapClickHandler onMapClick={onMapClick} />
 
-
-
-
-            <MapClickHandler onMapClick={onMapClick} />
-
-
-        </MapContainer>
+            </MapContainer>
+        </>
     )
+
+
 }
 
 export default TrailMap

@@ -6,11 +6,11 @@ const ProfileHeader = ({ user }) => {
   return (
     <header className="profile-header">
       <div className="profile-header-inner">
-        <img
-          src={user.profile_image || '/default-avatar.png'}
-          alt={user.username}
-          className="profile-avatar"
-        />
+
+        <div className="profile-avatar profile-avatar--emoji">
+          🏃‍♀️
+        </div>
+        
 
         <div className="profile-user-meta">
           <h1 className="profile-username">{user.username}</h1>

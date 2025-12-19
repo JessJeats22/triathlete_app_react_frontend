@@ -30,9 +30,9 @@ const NavBar = () => {
                 <nav className="navbar__links">
                     {user ? (
                         <>
-                            <Link to="/trails">All Trails</Link>
-                            <Link to="/trails/new">Add Trail</Link>
-                            <Link to="/me">Profile</Link>
+                            <Link to="/trails">Explore Trails</Link>
+                            <Link to="/trails/new">Build Custom Route</Link>
+                            <Link to="/me">Your Profile</Link>
                             <button onClick={handleSignOut}>Sign out</button>
                         </>
                     ) : (

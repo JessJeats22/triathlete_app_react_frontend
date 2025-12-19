@@ -80,7 +80,7 @@ const TrailsCreate = () => {
 
   return (
     <div className="trail-create-container">
-      <h1 className="trail-create-title">Create a New Trail</h1>
+      <h1 className="trail-create-title">Build Custom Route</h1>
 
       <form onSubmit={handleSubmit} className="trail-create-card">
 

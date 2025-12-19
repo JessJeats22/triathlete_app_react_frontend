@@ -1,15 +1,18 @@
 import './TrailsIndex.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { trailsIndex } from '../../services/trails'
 import { Link } from 'react-router'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import { TRAIL_TYPE_DISPLAY } from '../../utils/trailTypeDisplay'
+import { UserContext } from '../../contexts/UserContext'
 
 const TrailsIndex = () => {
 
     const [trails, setTrails] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [errorData, setErrorData] = useState({})
+    const { user } = useContext(UserContext)
+
 
     const [filters, setFilters] = useState({
         country: '',
@@ -34,6 +37,26 @@ const TrailsIndex = () => {
         return matchesCountry && matchesType
     })
 
+   if (!user) {
+  return (
+    <div className="trails-index-page">
+      <p className="auth-message">
+        Please{' '}
+        <Link to="/sign-in" className="auth-link">
+          sign in
+        </Link>{' '}
+        or{' '}
+        <Link to="/sign-up" className="auth-link">
+          create an account
+        </Link>{' '}
+        to access the trails.
+      </p>
+    </div>
+  )
+}
+
+
+
 
     useEffect(() => {
         const fetchTrails = async () => {
@@ -55,7 +78,7 @@ const TrailsIndex = () => {
     return (
         <div className="trails-index-page">
 
-            <h1 className="page-title">All Trails</h1>
+        
 
             <div className="trails-filters">
                 <select

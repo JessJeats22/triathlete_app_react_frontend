@@ -177,7 +177,6 @@
   background: #b00020;
 }
 
-/* === Trail metrics (GPX-derived) === */
 
 .trail-media-column {
   display: flex;
@@ -291,4 +290,34 @@
 
 .favourite-btn.active {
   filter: drop-shadow(0 0 4px rgba(220, 0, 0, 0.35));
+}
+
+.trail-image-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-image-wrapper {
+  position: relative;
+}
+
+.carousel-image {
+  width: 470px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #3a7d5d;
+}
+
+.carousel-btn:hover {
+  opacity: 0.7;
 }

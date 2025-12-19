@@ -1,6 +1,3 @@
-/* ===============================
-   Global Reset & Base Styles
-   =============================== */
 
 *,
 *::before,
@@ -23,10 +20,6 @@ body {
 
 
 
-/* ===============================
-   Color Variables (Nature Theme)
-   =============================== */
-
 :root {
   --blue-primary: #2f80ed;
   --blue-soft: #56ccf2;
@@ -43,9 +36,6 @@ body {
   --border-light: #e5e7eb;
 }
 
-/* ===============================
-   Typography
-   =============================== */
 
 h1, h2, h3 {
   font-weight: 600;
@@ -66,9 +56,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ===============================
-   Buttons
-   =============================== */
+
 
 button {
   font-family: inherit;
@@ -90,9 +78,6 @@ button:active {
   transform: translateY(1px);
 }
 
-/* ===============================
-   Forms
-   =============================== */
 
 input {
   width: 100%;
@@ -107,9 +92,6 @@ input:focus {
   border-color: var(--blue-primary);
 }
 
-/* ===============================
-   Utility
-   =============================== */
 
    .error-message {
   color: #dc2626;

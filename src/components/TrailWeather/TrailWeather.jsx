@@ -29,7 +29,7 @@ const TrailWeather = ({ trailId }) => {
 
   return (
     <div className="trail-weather-card">
-      <h3 className="weather-title">☀️ Weather ☀️ </h3>
+      <h3 className="weather-title">☀️ Current Weather ☀️ </h3>
 
       <ul className="weather-current">
         <li>

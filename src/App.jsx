@@ -14,8 +14,6 @@ import Profile from './components/Profile/Profile'
 
 
 
-
-
 const App = () => {
   
   return (

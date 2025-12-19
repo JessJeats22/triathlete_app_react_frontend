@@ -207,3 +207,13 @@
   font-size: 0.85rem;
 }
 
+
+.auth-link {
+  color: #3a7d5d;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.auth-link:hover {
+  opacity: 0.8;
+}
