@@ -45,7 +45,7 @@ const HomePage = () => {
         </ul>
 
         <p>
-          Got a favourite route? Add it to TriAtlas and help fellow athletes
+          Got a favourite route? Add it to TriTrials and help fellow athletes
           train smarter wherever they are ✨
         </p>
 

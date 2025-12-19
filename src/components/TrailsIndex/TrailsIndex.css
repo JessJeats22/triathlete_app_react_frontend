@@ -25,7 +25,8 @@
   --swim-fg: #0369a1;
 }
 
-/* Page container */
+
+
 .trails-index-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -33,7 +34,7 @@
   background: var(--bg-page);
 }
 
-/* Page title */
+
 .page-title {
   font-size: 2.2rem;
   margin-bottom: 2rem;
@@ -42,7 +43,7 @@
   letter-spacing: -0.02em;
 }
 
-/* Filters */
+
 .trails-filters {
   display: flex;
   gap: 1rem;
@@ -64,14 +65,15 @@
   box-shadow: 0 0 0 3px rgba(90, 128, 233, 0.15);
 }
 
-/* Grid */
+
 .trails-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
-/* Card */
+
+
 .trail-card {
   display: flex;
   flex-direction: column;
@@ -98,7 +100,7 @@
   border-color: rgba(90, 128, 233, 0.3);
 }
 
-/* Card content */
+
 .trail-title {
   font-size: 1.15rem;
   font-weight: 600;
@@ -110,7 +112,7 @@
   color: var(--text-muted);
 }
 
-/* Meta row */
+
 .trail-meta {
   display: flex;
   gap: 0.6rem;
@@ -118,7 +120,7 @@
   align-items: center;
 }
 
-/* Pills */
+
 .trail-type,
 .trail-distance {
   padding: 0.35rem 0.75rem;
@@ -128,7 +130,7 @@
   line-height: 1;
 }
 
-/* Trail type variants */
+
 .trail-type.run {
   background: var(--run-bg);
   color: var(--run-fg);
@@ -150,14 +152,14 @@
   color: #334155;
 }
 
-/* Error message */
+
 .error-message {
   color: #b00020;
   font-size: 0.95rem;
   margin-top: 1rem;
 }
 
-/* CARD */
+
 .trail-card {
   background: #ffffff;
   border-radius: 16px;
@@ -173,10 +175,10 @@
   box-shadow: 0 14px 40px rgba(0,0,0,0.1);
 }
 
-/* IMAGE */
+
 .trail-card-image {
   width: 100%;
-  height: 140px;
+ height: 200px;
   overflow: hidden;
 }
 
@@ -216,4 +218,42 @@
 
 .auth-link:hover {
   opacity: 0.8;
+}
+
+.filter-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #2f6b4f;
+  background-color: rgba(58, 125, 93, 0.12);
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.trails-filters select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 10px 14px;
+  padding-right: 36px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #2f6b4f;
+  background-color: #f2f6f3;
+
+  border: 1px solid rgba(58, 125, 93, 0.25);
+  border-radius: 999px;
+
+  cursor: pointer;
 }

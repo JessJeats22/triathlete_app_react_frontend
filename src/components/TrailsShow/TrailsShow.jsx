@@ -21,6 +21,7 @@ const TrailsShow = () => {
     const { trailId } = useParams()
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
+    
 
      if (!user) {
         return (

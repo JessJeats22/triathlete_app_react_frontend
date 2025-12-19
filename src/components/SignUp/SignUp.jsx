@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router'
 const SignUp = () => {
     const [formData, setFormData] = useState({
         username: "",
-        email: "", 
+        email: "",
         password: "",
         confirm_password: ""
     })
@@ -18,7 +18,7 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
- 
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
         setErrorData({ ...errorData, [e.target.name]: '' })
@@ -32,6 +32,8 @@ const SignUp = () => {
             navigate('/sign-in')
         } catch (error) {
             console.log(error)
+            console.log('STATUS:', error.response?.status)
+            console.log('DATA:', error.response?.data)
             if (error.response.status === 500) {
                 setErrorData({ message: 'Something went wrong. Please try again.' })
             } else {
@@ -48,32 +50,41 @@ const SignUp = () => {
                 <div className="form-control">
                     <label hidden htmlFor="username">Username</label>
                     <input type="text" name="username" id="username" placeholder='Username' onChange={handleChange} />
-                    {errorData.username && <p className='error-message'>{errorData.username}</p>}
+                    {errorData.username && <p className='error-message'>{errorData.username[0]}</p>}
                 </div>
 
 
                 <div className="form-control">
                     <label hidden htmlFor="email">Email</label>
                     <input type="text" name="email" id="email" placeholder='email' onChange={handleChange} />
-                    {errorData.email && <p className='error-message'>{errorData.email}</p>}
+                    {errorData.email && <p className='error-message'>{errorData.email[0]}</p>}
                 </div>
 
                 <div className="form-control">
                     <label hidden htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" placeholder='password' onChange={handleChange} />
-                    {errorData.password && <p className='error-message'>{errorData.password}</p>}
+                    {errorData.password && <p className='error-message'>{errorData.password[0]}</p>}
                 </div>
 
 
                 <div className="form-control">
                     <label hidden htmlFor="confirm_password">Re-type your password</label>
                     <input type="password" name="confirm_password" id="confirm_password" placeholder='Confirm Password' onChange={handleChange} />
-                    {errorData.confirm_password && <p className='error-message'>{errorData.confirm_password}</p>}
+                    {errorData.confirm_password && <p className='error-message'>{errorData.confirm_password[0]}</p>}
                 </div>
+
+                {errorData.non_field_errors && (
+                    <p className="form-error">
+                        {errorData.non_field_errors[0]}
+                    </p>
+                )}
+
 
                 <button type="submit">Create account</button>
 
-                {errorData.message && <p className='error-message'>{errorData.message}</p>}
+
+
+                {errorData.message && <p className='error-message'>{errorData.message[0]}</p>}
 
             </form>
 

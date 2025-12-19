@@ -17,7 +17,10 @@ const TrailsIndex = () => {
     const [filters, setFilters] = useState({
         country: '',
         trail_type: '',
+        excludeMine: false,
+        minDistance: '',
     })
+
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target
@@ -34,26 +37,40 @@ const TrailsIndex = () => {
         const matchesType =
             !filters.trail_type || trail.trail_type === filters.trail_type
 
-        return matchesCountry && matchesType
+        const matchesExcludeMine =
+            !filters.excludeMine || trail.created_by.id !== user.id
+
+        const matchesDistance =
+            !filters.minDistance ||
+            (trail.distance_km !== null &&
+                trail.distance_km >= Number(filters.minDistance))
+
+        return (
+            matchesCountry &&
+            matchesType &&
+            matchesExcludeMine &&
+            matchesDistance
+        )
     })
 
-   if (!user) {
-  return (
-    <div className="trails-index-page">
-      <p className="auth-message">
-        Please{' '}
-        <Link to="/sign-in" className="auth-link">
-          sign in
-        </Link>{' '}
-        or{' '}
-        <Link to="/sign-up" className="auth-link">
-          create an account
-        </Link>{' '}
-        to access the trails.
-      </p>
-    </div>
-  )
-}
+
+    if (!user) {
+        return (
+            <div className="trails-index-page">
+                <p className="auth-message">
+                    Please{' '}
+                    <Link to="/sign-in" className="auth-link">
+                        sign in
+                    </Link>{' '}
+                    or{' '}
+                    <Link to="/sign-up" className="auth-link">
+                        create an account
+                    </Link>{' '}
+                    to access the trails.
+                </p>
+            </div>
+        )
+    }
 
 
 
@@ -78,7 +95,7 @@ const TrailsIndex = () => {
     return (
         <div className="trails-index-page">
 
-        
+
 
             <div className="trails-filters">
                 <select
@@ -107,6 +124,21 @@ const TrailsIndex = () => {
                     <option value="bike">Bike</option>
                     <option value="run">Run</option>
                 </select>
+
+                <select
+                    name="minDistance"
+                    value={filters.minDistance}
+                    onChange={handleFilterChange}
+                >
+                    <option value="">Any distance</option>
+                    <option value="10">10 km+</option>
+                    <option value="25">25 km+</option>
+                    <option value="50">50 km+</option>
+                    <option value="100">100 km+</option>
+                </select>
+
+                
+
             </div>
 
 
