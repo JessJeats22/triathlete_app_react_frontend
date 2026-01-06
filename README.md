@@ -153,7 +153,7 @@ The project emphasised:
 
 - **ERD — Data Modelling:**  
   Entity-relationship diagrams defined relationships between users, trails, favourites, and POIs.  
-  ![ERD](screenshots/erd.png)
+  ![erd](screenshots/erd.png)
 
 - **User Stories & Sprint Planning (Trello):**  
   MVP features were prioritised and grouped into functional areas to guide delivery.  
