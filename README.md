@@ -92,13 +92,14 @@ npm run dev
 
 Create a .env in the project root:
 
+```bash
 VITE_API_URL=http://localhost:8000/api
 VITE_OPENWEATHER_API_KEY=your-api-key
 VITE_CLOUDINARY_URL=your-cloudinary-image-endpoint
 VITE_CLOUDINARY_RAW_URL=your-cloudinary-raw-endpoint
 VITE_UPLOAD_PRESET=your-image-upload-preset
 VITE_RAW_UPLOAD_PRESET=your-raw-upload-preset
-
+```
 
 Run the Application
 
@@ -166,6 +167,7 @@ The project emphasised:
 
 I structured authentication so that API concerns were separated from UI behaviour. A small Axios-based auth service handles requests, while UserContext stores user state globally, keeping Sign-In and Sign-Up components simple.
 
+```bash 
 // services/auth.js
 import axios from 'axios'
 import { getToken } from '../utils/token'
@@ -181,10 +183,11 @@ export const getMyProfile = () =>
   api.get('me/', {
     headers: { Authorization: `Bearer ${getToken()}` }
   })
-
+```
 
 Context exposes the authenticated user and sign-out behaviour:
 
+```bash 
 // contexts/UserContext.jsx
 import { createContext, useState } from 'react'
 import { getUserFromToken, removeToken } from '../utils/token'
@@ -205,6 +208,7 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   )
 }
+```
 
 
 This kept the UI lightweight and easy to maintain within the project timeframe.
@@ -213,6 +217,7 @@ This kept the UI lightweight and easy to maintain within the project timeframe.
 
 To allow users to attach images to trails without complicating the form logic, I built a reusable upload component that sends files to Cloudinary and returns the hosted URL to the parent form.
 
+```bash
 // components/ImageUploadField.jsx
 import { uploadImage } from '../../services/cloudinary'
 
@@ -230,10 +235,11 @@ export default function ImageUploadField({ setImage, imageURL }) {
     </>
   )
 }
-
+```
 
 Upload logic stays isolated inside a service module:
 
+```bash
 // services/cloudinary.js
 import axios from 'axios'
 
@@ -242,6 +248,7 @@ export const uploadImage = (file) =>
     file,
     upload_preset: import.meta.env.VITE_UPLOAD_PRESET
   })
+  ```
 
 
 This gave a clean separation between upload behaviour and form state.
@@ -251,6 +258,7 @@ This gave a clean separation between upload behaviour and form state.
 The map allows users to drop and manage POIs directly on the route.
 Data is fetched and stored locally via a simple service layer.
 
+```bash
 // services/pois.js
 import axios from 'axios'
 import { getToken } from '../utils/token'
@@ -268,6 +276,7 @@ export const createPoiForTrail = (trailId, poi) =>
   api.post(`trails/${trailId}/pois/`, poi, {
     headers: { Authorization: `Bearer ${getToken()}` }
   })
+  ```
 
 
 The UI re-fetches after creation so the sidebar and map stay in sync.
@@ -278,6 +287,7 @@ I chose to keep creation + deletion inside one component for clarity within the 
 
 To support real-world training use, the trail page displays live weather. All third-party API calls are proxied through the backend so API keys are never exposed in the frontend.
 
+```bash
 // services/weather.js
 import axios from 'axios'
 import { getToken } from '../utils/token'
@@ -286,7 +296,7 @@ export const getTrailWeather = (trailId) =>
   axios.get(`${import.meta.env.VITE_API_URL}/trails/${trailId}/weather/`, {
     headers: { Authorization: `Bearer ${getToken()}` }
   })
-
+```
 
 The frontend focuses only on state and presentation, keeping the implementation simple and secure.
 
