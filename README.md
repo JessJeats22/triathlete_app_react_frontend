@@ -4,7 +4,8 @@
 ## 📑 Table of Contents
 
 - [Overview](#overview)
-- [Related Repositories & Deployment](#-related-repositories--deployment)
+- [Deployment](#deployment)
+- [Related Repositories](#related-repositories)
 - [At A Glance](#at-a-glance)
 - [Screenshots](#screenshots)
 - [Technical Highlights](#technical-highlights)
@@ -31,11 +32,16 @@ Triathlete App is a full-stack project built during the final phase of my Genera
 
 The application consists of a React single-page frontend and a Django REST API backend.
 
-## 🔗 Related Repositories & Deployment
+![Trail Profile](screenshots/trail-profile.png)
 
+## Deployment
+
+Live site: https://triathleteappreactfrontend.netlify.app
+
+
+## Related Repositories
 
 Note: This README covers the React frontend. The Django REST API backend is documented in a separate repository:
-Frontend (this repo): https://triathleteappreactfrontend.netlify.app/trails  
 Backend API: https://github.com/JessJeats22/triathlete_app_django_backend
 
 ## At A Glance
@@ -65,30 +71,25 @@ Backend API: https://github.com/JessJeats22/triathlete_app_django_backend
 - Route-based navigation and protected pages implemented with React Router.
 
 
-## Deployment
-
-Live site: https://triathleteappreactfrontend.netlify.app/trails
-
 ## Getting Started
 
 Follow the steps below to run the frontend locally. This project requires a running instance of the Django REST API backend (either locally or deployed).
 
-## Prerequisites
+### Prerequisites
 
 Node.js v18+
 npm (or yarn)
 Django backend API available at the URL you configure
 
-## Installation
+### Installation
 
 ```bash
 git clone https://github.com/JessJeats22/triathlete_app_react_frontend.git
 cd triathlete_app_react_frontend
 npm install
-npm run dev
 ```
 
-## Environment Variables
+### Environment Variables
 
 Create a .env in the project root:
 
@@ -101,7 +102,15 @@ VITE_UPLOAD_PRESET=your-image-upload-preset
 VITE_RAW_UPLOAD_PRESET=your-raw-upload-preset
 ```
 
-Run the Application
+### Backend Repository
+
+This frontend consumes the Django API from the companion backend project:
+https://github.com/JessJeats22/triathlete_app_django_backend
+
+
+### Run the Application
+
+Make sure your Django backend is running, then start the frontend:
 
 ``` bash 
 npm run dev
@@ -109,12 +118,6 @@ npm run dev
 
 The application will be available at:
 http://localhost:5173
-
-## Backend Repository
-
-This frontend consumes the Django API from the companion backend project:
-https://github.com/JessJeats22/triathlete_app_django_backend
-
 
 
 ## Timeframe & Working Team
@@ -155,14 +158,15 @@ The project emphasised:
 
 - **ERD — Data Modelling:**  
   Entity-relationship diagrams defined relationships between users, trails, favourites, and POIs.  
-  https://drive.google.com/file/d/1bk7Xl_rnE2Nu8_KS0UCY3KdyDdn6nJER/view?usp=sharing
+  ![ERD](screenshots/erd.png)
 
 - **User Stories & Sprint Planning (Trello):**  
   MVP features were prioritised and grouped into functional areas to guide delivery.  
-  https://drive.google.com/file/d/1GtmxYdo28VANvAd4ubzJ56d-HcNryI7T/view?usp=sharing
+   ![Userstories](screenshots/userstories.png)
 
 
 ## Build / Code Process
+
 1️⃣ Authentication & API Service Layer
 
 I structured authentication so that API concerns were separated from UI behaviour. A small Axios-based auth service handles requests, while UserContext stores user state globally, keeping Sign-In and Sign-Up components simple.
@@ -300,6 +304,14 @@ export const getTrailWeather = (trailId) =>
 
 The frontend focuses only on state and presentation, keeping the implementation simple and secure.
 
+## Key Learnings
+
+- Developed strong confidence working with Django, DRF, and relational data modelling.
+- Improved understanding of data flow across the database → API → frontend pipeline.
+- Became more intentional about designing reusable, maintainable components.
+- Strengthened debugging, prioritisation, and decision-making under time constraints.
+- Learned to use AI as a research and problem-solving tool rather than a replacement for understanding.
+
 ## Challenges
 
 - Learning Django and Django REST Framework while delivering a full project within a 7-day sprint.
@@ -314,14 +326,6 @@ The frontend focuses only on state and presentation, keeping the implementation 
 - Successfully integrated mapping, uploads, and API data into a cohesive, user-friendly experience.
 - Added thoughtful UX details such as optimistic favourites and image upload previews.
 - Delivered a full-stack project independently within the sprint window.
-
-## Key Learnings
-
-- Developed strong confidence working with Django, DRF, and relational data modelling.
-- Improved understanding of data flow across the database → API → frontend pipeline.
-- Became more intentional about designing reusable, maintainable components.
-- Strengthened debugging, prioritisation, and decision-making under time constraints.
-- Learned to use AI as a research and problem-solving tool rather than a replacement for understanding.
 
 ## Bugs / Known Limitations
 
