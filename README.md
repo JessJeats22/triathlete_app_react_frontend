@@ -32,7 +32,7 @@ Triathlete App is a full-stack project built during the final phase of my Genera
 
 The application consists of a React single-page frontend and a Django REST API backend.
 
-![Trail Profile](screenshots/trails-profile.png)
+![Trails Profile](screenshots/trails-profile.png)
 
 ## Deployment
 
