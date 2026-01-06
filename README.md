@@ -7,7 +7,7 @@
 - [Deployment](#deployment)
 - [Related Repositories](#related-repositories)
 - [At A Glance](#at-a-glance)
-- [Screenshots](#screenshots)
+- [Trails Show & Trails Detail Screenshots](#trails-show--trails-detail-screenshots)
 - [Technical Highlights](#technical-highlights)
 - [Deployment](#deployment)
 - [Getting Started](#getting-started)
@@ -33,6 +33,8 @@ Triathlete App is a full-stack project built during the final phase of my Genera
 The application consists of a React single-page frontend and a Django REST API backend.
 
 ![Trails Profile](screenshots/trails-profile.png)
+![Trail detail](screenshots/trail-detail.png)
+![Trails list](screenshots/trails-list.png)
 
 ## Deployment
 
@@ -54,7 +56,7 @@ Backend API: https://github.com/JessJeats22/triathlete_app_django_backend
 - Auth, favourites, and protected routes
 
 
-## Screenshots
+## Trails Show & Trails Detail Screenshots
 
 ![Trail detail](screenshots/trail-detail.png)
 ![Trails list](screenshots/trails-list.png)
