@@ -1,4 +1,6 @@
 
+## Triathlete Trails App — React Frontend (Leaflet, GPX, Django API)
+
 ## 📑 Table of Contents
 
 - [Overview](#overview)
@@ -54,19 +56,14 @@ Backend API: https://github.com/JessJeats22/triathlete_app_django_backend
 
 ## Technical Highlights
 
-Optimistic UI updates for trail favourites (with rollback on API failure).
+- Optimistic UI updates for trail favourites, with rollback on API failure.
+- Leaflet map rendering with GPX route overlays and interactive Points of Interest.
+- Cloudinary integration for image uploads and raw GPX file storage.
+- Service-based API layer using Axios with automatic auth-token injection.
+- Role-aware UI — trail owners can edit, delete, and manage POIs.
+- Consistent loading and error-handling patterns across asynchronous views.
+- Route-based navigation and protected pages implemented with React Router.
 
-Leaflet map rendering with GPX route overlays and interactive Points of Interest.
-
-Cloudinary integration for image uploads and raw GPX file storage.
-
-Service-based API layer using Axios with auth token injection.
-
-Role-aware UI — trail owners can edit, delete and manage POIs.
-
-Consistent loading and error handling across async views.
-
-Route-based navigation and protected pages using React Router.
 
 ## Deployment
 
@@ -126,48 +123,43 @@ I was responsible for planning, UI implementation, API integration, testing and 
 
 ## Technologies Used
 
-Frontend: React, React Router, JavaScript (ES6+), Axios, Leaflet, Vite
-Backend (API): Django, Django REST Framework
-External Services: Cloudinary, OpenWeather API
-Dev & Deployment: Git, GitHub, Netlify, Node.js, VS Code
+- **Frontend:** React, React Router, JavaScript (ES6+), Axios, Leaflet, Vite  
+- **Backend (API):** Django, Django REST Framework  
+- **External Services:** Cloudinary, OpenWeather API  
+- **Development & Deployment:** Git, GitHub, Netlify, Node.js, VS Code
 
-## Project Brief 
+
+## Project Brief
 
 This project was completed as part of the General Assembly Software Engineering Immersive. The goal was to design and build a full-stack application with:
 
-A Django REST API + PostgreSQL database
+- A Django REST API and PostgreSQL database  
+- A separate React frontend consuming the API  
+- Relational data models with full CRUD functionality  
+- Public deployment of both the frontend and backend
 
-A separate React frontend consuming the API
+The project emphasised:
 
-Relational data with CRUD functionality
+- Code quality and maintainability  
+- Thoughtful, user-centred design  
+- Realistic feature prioritisation  
+- Professional workflows and frequent commits
 
-Public deployment of both frontend and backend
-
-The focus was on:
-
-Code quality and maintainability
-
-Thoughtful user-centred design
-
-Realistic feature prioritisation
-
-Professional workflows and frequent commits
 
 ## Planning
-Wireframes (Miro)
 
-Low-fidelity screens to explore layout and user flow.
-👉 https://miro.com/app/board/uXjVJnf3aVk=/?share_link_id=386227732684
+- **Wireframes (Miro):**  
+  Low-fidelity screens were created to explore layout options and user flow.  
+  https://miro.com/app/board/uXjVJnf3aVk=/?share_link_id=386227732684
 
-ERD — Data Modelling
+- **ERD — Data Modelling:**  
+  Entity-relationship diagrams defined relationships between users, trails, favourites, and POIs.  
+  https://drive.google.com/file/d/1bk7Xl_rnE2Nu8_KS0UCY3KdyDdn6nJER/view?usp=sharing
 
-Defined relationships for users, trails, favourites and POIs.
-👉 https://drive.google.com/file/d/1bk7Xl_rnE2Nu8_KS0UCY3KdyDdn6nJER/view?usp=sharing
+- **User Stories & Sprint Planning (Trello):**  
+  MVP features were prioritised and grouped into functional areas to guide delivery.  
+  https://drive.google.com/file/d/1GtmxYdo28VANvAd4ubzJ56d-HcNryI7T/view?usp=sharing
 
-User Stories & Sprint Planning (Trello)
-
-MVP features prioritised and organised into feature groups.
-👉 https://drive.google.com/file/d/1GtmxYdo28VANvAd4ubzJ56d-HcNryI7T/view?usp=sharing
 
 ## Build / Code Process
 1️⃣ Authentication & API Service Layer
@@ -298,56 +290,38 @@ export const getTrailWeather = (trailId) =>
 
 The frontend focuses only on state and presentation, keeping the implementation simple and secure.
 
-## Challenges 
+## Challenges
 
-Learning Django + DRF while delivering a full project in 7 days.
-
-Maintaining consistent naming and structure as the codebase grew.
-
-Handling async behaviour and optimistic UI updates.
-
-Making pragmatic trade-offs to prioritise a stable MVP over complexity.
+- Learning Django and Django REST Framework while delivering a full project within a 7-day sprint.
+- Maintaining consistent naming conventions and structure as the codebase grew.
+- Managing asynchronous behaviour and implementing optimistic UI updates reliably.
+- Making pragmatic trade-offs to prioritise a stable MVP over unnecessary complexity.
 
 ## Wins
 
-Built real, meaningful features beyond basic CRUD (GPX, maps, POIs, weather).
-
-Achieved clear separation of concerns via services, context and reusable components.
-
-Successfully integrated mapping, uploads and API data into a cohesive experience.
-
-Added thoughtful UX details such as optimistic favourites and upload previews.
-
-Delivered a full-stack project independently within the sprint window.
+- Built meaningful features beyond basic CRUD, including GPX upload, mapping, POIs, and weather integration.
+- Achieved clear separation of concerns via service modules, context state, and reusable components.
+- Successfully integrated mapping, uploads, and API data into a cohesive, user-friendly experience.
+- Added thoughtful UX details such as optimistic favourites and image upload previews.
+- Delivered a full-stack project independently within the sprint window.
 
 ## Key Learnings
 
-Gained strong confidence with Django + DRF and relational data modelling.
+- Developed strong confidence working with Django, DRF, and relational data modelling.
+- Improved understanding of data flow across the database → API → frontend pipeline.
+- Became more intentional about designing reusable, maintainable components.
+- Strengthened debugging, prioritisation, and decision-making under time constraints.
+- Learned to use AI as a research and problem-solving tool rather than a replacement for understanding.
 
-Improved understanding of data flow across database → API → frontend.
+## Bugs / Known Limitations
 
-Became more intentional about reusable, maintainable components.
-
-Learned to debug and prioritise effectively under time constraints.
-
-Used AI thoughtfully as a research and problem-solving tool, not a replacement for understanding.
-
-## Bugs / Known Limitations 
-
-Upload failures are logged to console rather than surfaced to the user.
-
-Favourite rollback works, but lacks user-visible feedback.
-
-POI creation relies on clicking the map first, which could be clearer from a UX perspective.
+- Upload failures are currently logged to the console rather than surfaced in the UI.
+- Favourite rollback behaviour works, but lacks clear user-visible feedback.
+- POI creation requires clicking the map first, which could be clearer from a UX perspective.
 
 ## Future Improvements
 
-Richer homepage and stronger visual design (potentially Tailwind / component library).
-
-Expanded profile area with editable details and training statistics.
-
-More advanced POI interactions (editing, filtering, clustering, improved UI patterns).
-
-Better inline feedback for errors, uploads and background actions.
-
-Refactor mapping behaviour into reusable React hooks as features expand.
+- Introduce a richer homepage and stronger visual design (potentially using Tailwind or a component library).
+- Expand the profile area with editable details and training statistics.
+- Enhance POI interactions with editing, filtering, clustering, and improved UI patterns.
+- Provide clearer inline feedback for errors, uploads, and
