@@ -1,6 +1,17 @@
 
 ## Triathlete Trails App — React Frontend (Leaflet, GPX, Django API)
 
+## Overview
+
+TriTrails is a full-stack web app designed for triathletes who want to discover and share training routes when travelling or exploring new places. The platform allows athletes to upload GPX files, view routes on interactive maps, add points of interest (such as water stops, viewpoints, or repair shops), and save their favourite trails for future sessions.
+
+I built TriTrails during the final phase of my General Assembly Software Engineering course to solve a real problem I experience as a triathlete - finding safe, reliable swim, bike, and run routes anywhere in the world.
+
+The application consists of a React single-page frontend and a Django REST API backend.
+
+![Trail detail](screenshots/trail-detail.png)
+![Trails list](screenshots/trails-list.png)
+
 ## 📑 Table of Contents
 
 - [Overview](#overview)
@@ -26,16 +37,7 @@
 - [Future Improvements](#future-improvements)
 
 
-## Overview
 
-TriTrails is a full-stack web app designed for triathletes who want to discover and share training routes when travelling or exploring new places. The platform allows athletes to upload GPX files, view routes on interactive maps, add points of interest (such as water stops, viewpoints, or repair shops), and save their favourite trails for future sessions.
-
-I built TriTrails during the final phase of my General Assembly Software Engineering course to solve a real problem I experience as a triathlete - finding safe, reliable swim, bike, and run routes anywhere in the world.
-
-The application consists of a React single-page frontend and a Django REST API backend.
-
-![Trail detail](screenshots/trail-detail.png)
-![Trails list](screenshots/trails-list.png)
 
 ## Deployment
 
