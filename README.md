@@ -28,7 +28,9 @@
 
 ## Overview
 
-Triathlete App is a full-stack project built during the final phase of my General Assembly Software Engineering course. As a keen triathlete, I wanted to build an app that enables athletes to discover, upload and manage training trails, mark points of interest, and save favourites — helping people find swimming, cycling and running routes anywhere in the world.
+TriTrails is a full-stack web app designed for triathletes who want to discover and share training routes when travelling or exploring new places. The platform allows athletes to upload GPX files, view routes on interactive maps, add points of interest (such as water stops, viewpoints, or repair shops), and save their favourite trails for future sessions.
+
+I built TriTrails during the final phase of my General Assembly Software Engineering course to solve a real problem I experience as a triathlete - finding safe, reliable swim, bike, and run routes anywhere in the world.
 
 The application consists of a React single-page frontend and a Django REST API backend.
 
